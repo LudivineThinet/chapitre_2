@@ -1,8 +1,7 @@
 import pool from '../config/db.js'
 
 export const getMe = async (req, res) => {
-  // Authentification simulée
-  const userId = 1
+  const userId = req.user.id
 
   try {
     const result = await pool.query(
