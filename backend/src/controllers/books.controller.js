@@ -3,7 +3,7 @@ import pool from '../config/db.js'
 export const getAllBooks = async (req, res) => {
   try {
     const result = await pool.query(
-      'SELECT id, isbn, title, author FROM books ORDER BY title'
+      'SELECT id, isbn, title, author, price_new_ref, summary, image_url FROM books ORDER BY title'
     )
 
     res.json(result.rows)

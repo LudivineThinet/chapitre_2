@@ -12,7 +12,7 @@ export const createBuyback = async (req, res) => {
   }
 
   try {
-    // 1️⃣ Trouver le livre via l’ISBN
+    //Trouver le livre via l’ISBN
     const bookResult = await pool.query(
       'SELECT id, price_new_ref FROM books WHERE isbn = $1',
       [isbn]
@@ -26,13 +26,13 @@ export const createBuyback = async (req, res) => {
       })
     }
 
-    // 2️⃣ Calcul des prix
+    //Calcul des prix
     const { buyPrice, sellPrice } = calculatePrices(
       book.price_new_ref,
       condition
     )
 
-    // 3️⃣ Création de la demande de rachat
+    //Création de la demande de rachat
     const result = await pool.query(
       `
       INSERT INTO buybacks (user_id, book_id, condition, buy_price, sell_price)
@@ -132,7 +132,7 @@ export const validateBuyback = async (req, res) => {
   }
 
   try {
-    // 1️⃣ Récupérer le rachat
+    //Récupération du rachat
     const buybackResult = await pool.query(
       'SELECT * FROM buybacks WHERE id = $1',
       [id]
@@ -146,13 +146,13 @@ export const validateBuyback = async (req, res) => {
       })
     }
 
-    // 2️⃣ Mettre à jour le statut
+    //Mise à jour du statut
     await pool.query(
       'UPDATE buybacks SET status = $1 WHERE id = $2',
       [status, id]
     )
 
-    // 3️⃣ Si accepté → gestion du stock
+    //Si accepté → gestion du stock
     if (status === 'accepted') {
       // vérifier si un book_item existe déjà
       const itemResult = await pool.query(

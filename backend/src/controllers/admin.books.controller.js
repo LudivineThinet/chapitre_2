@@ -1,16 +1,16 @@
 import pool from '../config/db.js'
 
 export const createBook = async (req, res) => {
-  const { isbn, title, author, price_new_ref } = req.body
+  const { isbn, title, author, price_new_ref, summary, image_url } = req.body
 
-  if (!isbn || !title || !author || !price_new_ref) {
+  if (!isbn || !title || !author || !price_new_ref || !summary || !image_url) {
     return res.status(400).json({
       message: 'All fields are required'
     })
   }
 
   try {
-    // Vérifier si le livre existe déjà
+    // Vérification si le livre existe déjà
     const existingBook = await pool.query(
       'SELECT id FROM books WHERE isbn = $1',
       [isbn]
@@ -24,11 +24,12 @@ export const createBook = async (req, res) => {
 
     const result = await pool.query(
       `
-      INSERT INTO books (isbn, title, author, price_new_ref)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO books (isbn, title, author, price_new_ref, summary, image_url)
+      VALUES ($1, $2, $3, $4, $5, $6)
+
       RETURNING *
       `,
-      [isbn, title, author, price_new_ref]
+      [isbn, title, author, price_new_ref, summary, image_url]
     )
 
     res.status(201).json({

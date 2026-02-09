@@ -11,7 +11,7 @@ export const createBookItem = async (req, res) => {
   }
 
   try {
-    // 1️⃣ Récupérer le prix neuf depuis books
+    //Récupération du prix neuf depuis books
     const bookResult = await pool.query(
       'SELECT price_new_ref FROM books WHERE id = $1',
       [book_id]
@@ -25,13 +25,13 @@ export const createBookItem = async (req, res) => {
       })
     }
 
-    // 2️⃣ Calcul automatique des prix
+    //Calcul automatique des prix
     const { buyPrice, sellPrice } = calculatePrices(
       book.price_new_ref,
       condition
     )
 
-    // 3️⃣ Vérifier si un item existe déjà (même book + même état)
+    //Vérification si un item existe déjà (même book + même état)
     const existingItem = await pool.query(
       `
       SELECT id, stock FROM book_items
@@ -60,7 +60,7 @@ export const createBookItem = async (req, res) => {
       })
     }
 
-    // 4️⃣ Sinon → création
+    //Sinon → création
     const result = await pool.query(
       `
       INSERT INTO book_items (book_id, condition, buy_price, sell_price, stock)
@@ -72,6 +72,55 @@ export const createBookItem = async (req, res) => {
 
     res.status(201).json({
       message: 'Book item created',
+      bookItem: result.rows[0]
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      message: 'Server error'
+    })
+  }
+}
+
+
+
+// Modifications exemplaires 
+export const updateBookItem = async (req, res) => {
+  const { id } = req.params
+  const { stock } = req.body
+
+  if (stock === undefined) {
+    return res.status(400).json({
+      message: 'Stock is required'
+    })
+  }
+
+  try {
+    // Vérifier si l'exemplaire existe
+    const existingItem = await pool.query(
+      'SELECT * FROM book_items WHERE id = $1',
+      [id]
+    )
+
+    if (existingItem.rows.length === 0) {
+      return res.status(404).json({
+        message: 'Book item not found'
+      })
+    }
+
+    // Mise à jour du stock
+    const result = await pool.query(
+      `
+      UPDATE book_items
+      SET stock = $1
+      WHERE id = $2
+      RETURNING *
+      `,
+      [stock, id]
+    )
+
+    res.json({
+      message: 'Book item updated',
       bookItem: result.rows[0]
     })
   } catch (error) {

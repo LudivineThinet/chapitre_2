@@ -7,7 +7,7 @@ import { authMiddleware } from '../middlewares/auth.middleware.js'
 
 const router = express.Router()
 
-// ⚠️ pour le MVP : auth simple
+//pour le MVP : auth simple
 router.get('/', authMiddleware, getAllBuybacks)
 router.put('/:id', authMiddleware, validateBuyback)
 

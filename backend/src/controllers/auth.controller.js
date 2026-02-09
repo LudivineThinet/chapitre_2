@@ -25,7 +25,7 @@ export const register = async (req, res) => {
       })
     }
 
-    // 🔐 HASH DU MOT DE PASSE
+    //HASH DU MOT DE PASSE
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const result = await pool.query(
@@ -71,7 +71,7 @@ export const login = async (req, res) => {
       })
     }
 
-    // 🔐 COMPARAISON BCRYPT
+    //COMPARAISON BCRYPT
     const isPasswordValid = await bcrypt.compare(password, user.password)
 
     if (!isPasswordValid) {
@@ -80,7 +80,7 @@ export const login = async (req, res) => {
       })
     }
 
-    // 🔐 Création du token JWT
+    //Création du token JWT
 const token = jwt.sign(
   {
     id: user.id,

@@ -21,7 +21,7 @@ export const authMiddleware = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-    // On attache l'utilisateur à la requête
+    // J'attache l'utilisateur à la requête
     req.user = decoded
 
     next()
