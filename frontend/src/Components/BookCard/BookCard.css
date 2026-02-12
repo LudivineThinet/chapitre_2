@@ -1,0 +1,22 @@
+.book-card {
+  border: 1px solid #ccc;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+
+  text-decoration: none;
+  color: inherit;
+
+  display: block;
+  transition: transform 0.15s ease;
+}
+
+.book-card:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.book-card img {
+  width: 100%;
+  border-radius: 6px;
+}
