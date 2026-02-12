@@ -1,11 +1,36 @@
 import pool from '../config/db.js'
 
 export const createBook = async (req, res) => {
-  const { isbn, title, author, price_new_ref, summary, image_url } = req.body
+  const {
+    isbn,
+    title,
+    author,
+    price_new_ref,
+    summary,
+    image_url,
+    format,
+    genres
+  } = req.body
 
-  if (!isbn || !title || !author || !price_new_ref || !summary || !image_url) {
+  // Vérification des champs obligatoires
+  if (
+    !isbn ||
+    !title ||
+    !author ||
+    !price_new_ref ||
+    !summary ||
+    !image_url ||
+    !format
+  ) {
     return res.status(400).json({
       message: 'All fields are required'
+    })
+  }
+
+  // Vérification genres obligatoire
+  if (!genres || genres.length === 0) {
+    return res.status(400).json({
+      message: 'At least one genre is required'
     })
   }
 
@@ -22,19 +47,34 @@ export const createBook = async (req, res) => {
       })
     }
 
+    // Création du livre
     const result = await pool.query(
       `
-      INSERT INTO books (isbn, title, author, price_new_ref, summary, image_url)
-      VALUES ($1, $2, $3, $4, $5, $6)
-
+      INSERT INTO books (isbn, title, author, price_new_ref, summary, image_url, format)
+      VALUES ($1, $2, $3, $4, $5, $6, $7)
       RETURNING *
       `,
-      [isbn, title, author, price_new_ref, summary, image_url]
+      [isbn, title, author, price_new_ref, summary, image_url, format]
     )
 
+    const newBook = result.rows[0]
+
+    // Insertion des genres dans la table pivot
+    for (const genreId of genres) {
+      await pool.query(
+        `
+        INSERT INTO book_genres (book_id, genre_id)
+        VALUES ($1, $2)
+        `,
+        [newBook.id, genreId]
+      )
+    }
+
+    // Réponse finale
     res.status(201).json({
       message: 'Book created',
-      book: result.rows[0]
+      book: newBook,
+      genres
     })
   } catch (error) {
     console.error(error)
