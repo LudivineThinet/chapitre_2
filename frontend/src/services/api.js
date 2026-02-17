@@ -29,3 +29,52 @@ export async function fetchBooks() {
 
   return response.json();
 }
+
+
+// Inscription utilisateur
+export async function registerUser(email, password) {
+  const response = await fetch(`${API_URL}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erreur inscription");
+  }
+
+  return response.json();
+}
+
+
+// Connexion utilisateur
+export async function loginUser(email, password) {
+  const response = await fetch(`${API_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erreur connexion");
+  }
+
+  return response.json();
+}
+
+// Récupérer le token JWT stocké
+export function getToken() {
+  return localStorage.getItem("token");
+}

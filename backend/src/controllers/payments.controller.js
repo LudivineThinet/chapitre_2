@@ -22,13 +22,13 @@ export const createCheckoutSession = async (req, res) => {
           product_data: {
             name: item.title
           },
-          unit_amount: Math.round(item.price * 100)
+          unit_amount: Math.round(Number(item.price) * 100)
         },
         quantity: item.quantity
       })),
 
-      success_url: 'http://localhost:5173/success',
-      cancel_url: 'http://localhost:5173/cancel'
+      success_url: 'http://localhost:5173/Success',
+      cancel_url: 'http://localhost:5173/Cancel'
     })
 
     res.json({

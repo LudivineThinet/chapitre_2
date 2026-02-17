@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import OfferSelector from "../../components/OfferSelector/OfferSelector";
 import { fetchBookById, fetchBookOffers } from "../../services/api";
+import { CartContext } from "../../context/CartContext";
 
 function BookDetails() {
   const { id } = useParams();
@@ -10,6 +11,7 @@ function BookDetails() {
   const [book, setBook] = useState(null);
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     async function loadData() {
@@ -77,11 +79,21 @@ function BookDetails() {
     />
 
     {/* Add to cart button */}
-    <button disabled={!selectedOffer}>
-  {selectedOffer
-    ? `Add to cart (${selectedOffer.sell_price} €)`
-    : "Add to cart"}
+    <button
+  disabled={!selectedOffer}
+  onClick={() =>
+    addToCart({
+      id: selectedOffer.id,
+      title: book.title,
+      author: book.author,
+      condition: selectedOffer.condition,
+      price: selectedOffer.sell_price,
+    })
+  }
+>
+  Add to cart
 </button>
+
 
 
     {/* Small helper message */}

@@ -7,6 +7,7 @@ import logo from "../../assets/Image/logo.png";
 function Header() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const token = localStorage.getItem("token");
 
   const categories = [
     "Fantasy",
@@ -55,9 +56,16 @@ function Header() {
 
         {/* Actions */}
         <div className="header-actions">
-          <Link to="/Profile" className="nav-link">
-            Profil
-          </Link>
+          {token ? (
+  <Link to="/profile" className="nav-link">
+    Profil
+  </Link>
+) : (
+  <Link to="/login" className="nav-link">
+    Connexion
+  </Link>
+)}
+
 
           <Link to="/cart" className="nav-link">
             Panier
