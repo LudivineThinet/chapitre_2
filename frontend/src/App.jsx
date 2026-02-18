@@ -10,6 +10,7 @@ import Cancel from "./pages/Cancel/Cancel";
 import Login from "./pages/Login/Login";
 import Profile from "./pages/Profile/Profile";
 import Register from "./pages/Register/Register";
+import Sell from "./pages/Sell/Sell";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 
@@ -34,6 +35,9 @@ function App() {
 
       {/* Profile */}
       <Route path="/profile" element={<Profile />} />
+
+      {/* Sell */}
+      <Route path="/sell" element={<Sell />} />
       
       {/* Cart */}
       <Route path="/cart" element={<Cart />} />

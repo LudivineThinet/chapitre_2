@@ -78,3 +78,53 @@ export async function loginUser(email, password) {
 export function getToken() {
   return localStorage.getItem("token");
 }
+
+
+// Créer une demande de rachat
+export async function createBuyback(isbn, condition) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${API_URL}/buybacks`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      isbn,
+      condition,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erreur rachat");
+  }
+
+  return response.json();
+}
+
+// Estimer un rachat (sans création)
+export async function estimateBuyback(isbn, condition) {
+  const token = localStorage.getItem("token");
+
+  const response = await fetch(`${API_URL}/buybacks/estimate`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      isbn,
+      condition,
+    }),
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Erreur estimation");
+  }
+
+  return response.json();
+}
+

@@ -198,3 +198,52 @@ export const validateBuyback = async (req, res) => {
     })
   }
 }
+
+
+export const estimateBuyback = async (req, res) => {
+  const { isbn, condition } = req.body
+
+  if (!isbn || !condition) {
+    return res.status(400).json({
+      message: 'ISBN and condition are required'
+    })
+  }
+
+  try {
+    // Trouver le livre via ISBN
+    const bookResult = await pool.query(
+      'SELECT id, title, author, price_new_ref FROM books WHERE isbn = $1',
+      [isbn]
+    )
+
+    const book = bookResult.rows[0]
+
+    if (!book) {
+      return res.status(404).json({
+        message: 'Book not found'
+      })
+    }
+
+    // Calcul des prix estimés
+    const { buyPrice, sellPrice } = calculatePrices(
+      book.price_new_ref,
+      condition
+    )
+
+    // Retour estimation (sans insertion)
+    res.json({
+      isbn,
+      title: book.title,
+      author: book.author,
+      condition,
+      buy_price: buyPrice,
+      sell_price: sellPrice
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({
+      message: 'Server error'
+    })
+  }
+}
+
