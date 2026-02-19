@@ -8,6 +8,8 @@ function Header() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const token = localStorage.getItem("token");
+  const role = localStorage.getItem("userRole");
+
 
   const categories = [
     "Fantasy",
@@ -15,7 +17,7 @@ function Header() {
     "Thriller",
     "Horror",
     "Science Fiction",
-    "Category 6",
+    "Classic",
     "Category 7",
     "Category 8",
     "Category 9",
@@ -56,35 +58,51 @@ function Header() {
 
         {/* Actions */}
         <div className="header-actions">
-          {token ? (
-  <Link to="/profile" className="nav-link">
-    Profil
-  </Link>
-) : (
-  <Link to="/login" className="nav-link">
-    Connexion
-  </Link>
-)}
+                  {token ? (
+          <Link to="/profile" className="nav-link">
+            Profil
+          </Link>
+        ) : (
+          <Link to="/login" className="nav-link">
+            Connexion
+          </Link>
+        )}
 
 
           <Link to="/cart" className="nav-link">
             Panier
           </Link>
+
+          {role === "admin" && (
+  <Link to="/admin/buybacks" className="nav-link">
+    Admin
+  </Link>
+)}
+
         </div>
       </div>
 
+
       {/* Second line : Categories */}
-      <nav className="header-categories">
-        {categories.map((cat) => (
-          <Link
-            key={cat}
-            to={`/books?genre=${encodeURIComponent(cat)}`}
-            className="category-link"
-          >
-            {cat}
-          </Link>
-        ))}
-      </nav>
+<div className="header-categories">
+  {/* Tous les livres */}
+  <Link to="/books" className="category-link">
+    Tous les livres
+  </Link>
+
+  {/* Catégories filtrées */}
+  {categories.map((cat) => (
+    <Link
+      key={cat}
+      to={`/books?genre=${encodeURIComponent(cat)}`}
+      className="category-link"
+    >
+      {cat}
+    </Link>
+  ))}
+</div>
+
+
     </header>
   );
 }

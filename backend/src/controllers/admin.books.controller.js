@@ -83,3 +83,32 @@ export const createBook = async (req, res) => {
     })
   }
 }
+
+export const getAllAdminBooks = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        b.id,
+        b.title,
+        b.author,
+        b.isbn,
+        b.price_new_ref,
+        b.summary,
+        b.image_url,
+        b.format,
+        ARRAY_AGG(DISTINCT g.name) AS genres
+      FROM books b
+      LEFT JOIN book_genres bg ON bg.book_id = b.id
+      LEFT JOIN genres g ON g.id = bg.genre_id
+      GROUP BY b.id
+      ORDER BY b.title ASC
+    `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+

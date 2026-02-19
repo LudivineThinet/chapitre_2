@@ -27,6 +27,7 @@ function Login() {
       localStorage.setItem("token", data.token);
 
       localStorage.setItem("userEmail", data.user.email);
+      localStorage.setItem("userRole", data.user.role);
 
 
       // Redirection après connexion

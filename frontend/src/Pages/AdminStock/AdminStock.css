@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+td,
+th {
+  border: 1px solid #ddd;
+  padding: 0.7rem;
+}
+
+th {
+  background: #eee;
+}
+
+button {
+  margin-right: 0.5rem;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+
+.admin-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 400px;
+}

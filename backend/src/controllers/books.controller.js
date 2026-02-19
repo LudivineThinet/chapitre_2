@@ -30,7 +30,7 @@ export const getAllBooks = async (req, res) => {
 
     query += `
       GROUP BY b.id
-      ORDER BY b.title ASC
+      ORDER BY b.created_at DESC
     `
 
     const result = await pool.query(query, values)

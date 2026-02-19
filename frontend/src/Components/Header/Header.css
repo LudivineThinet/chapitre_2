@@ -56,3 +56,9 @@
 .category-link:hover {
   text-decoration: underline;
 }
+.category-link {
+  margin-right: 1rem;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+}

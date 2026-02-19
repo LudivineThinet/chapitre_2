@@ -130,3 +130,25 @@ export const updateBookItem = async (req, res) => {
     })
   }
 }
+
+export const getAllBookItems = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT
+        bi.id,
+        bi.condition,
+        bi.stock,
+        bi.sell_price,
+        b.title,
+        b.author
+      FROM book_items bi
+      JOIN books b ON bi.book_id = b.id
+      ORDER BY b.title ASC
+    `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
