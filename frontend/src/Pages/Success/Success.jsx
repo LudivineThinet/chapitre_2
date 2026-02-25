@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Success.css";
 
@@ -10,16 +10,30 @@ function Success() {
   const [status, setStatus] = useState("loading");
   const [orderId, setOrderId] = useState(null);
 
+  // 🔒 Empêche le double appel en StrictMode (dev)
+  const hasCreatedOrder = useRef(false);
+
   useEffect(() => {
+    // garde-fou React
+    if (hasCreatedOrder.current) return;
+    hasCreatedOrder.current = true;
+
     async function createOrder() {
+      const storedAddressId = sessionStorage.getItem("selectedAddressId");
       const token = localStorage.getItem("token");
+
+      if (!storedAddressId) {
+  console.error("Adresse manquante pour la commande");
+  setStatus("error");
+  return;
+}
 
       if (!token) {
         setStatus("error");
         return;
       }
 
-      // Format attendu par le backend
+      // format attendu par le backend
       const items = cartItems.map((item) => ({
         book_item_id: item.id,
         quantity: item.quantity,
@@ -32,7 +46,7 @@ function Success() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ items }),
+          body: JSON.stringify({ items, address_id: Number(storedAddressId) }),
         });
 
         const data = await response.json();
@@ -43,11 +57,12 @@ function Success() {
           return;
         }
 
-        // Stocker l'ID de commande
+        // stocke l'id de commande
         setOrderId(data.order.id);
 
-        // Vider le panier
+        // vide le panier
         clearCart();
+        sessionStorage.removeItem("selectedAddressId");
 
         setStatus("success");
       } catch (error) {
@@ -57,15 +72,7 @@ function Success() {
     }
 
     createOrder();
-  }, []);
-
-  // Empêcher la création de plusieurs commandes en cas de rafraîchissement
-  const alreadyOrdered = sessionStorage.getItem("orderCreated");
-
-if (alreadyOrdered) return;
-
-sessionStorage.setItem("orderCreated", "true");
-
+  }, [cartItems, clearCart]);
 
   return (
     <div className="success-container">

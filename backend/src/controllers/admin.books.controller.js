@@ -111,4 +111,41 @@ export const getAllAdminBooks = async (req, res) => {
   }
 };
 
+export const updateBook = async (req, res) => {
+  const { id } = req.params;
+
+  const {
+    title,
+    author,
+    price_new_ref,
+    summary,
+    image_url,
+    format,
+  } = req.body;
+
+  try {
+    const result = await pool.query(
+      `
+      UPDATE books
+      SET title = $1,
+          author = $2,
+          price_new_ref = $3,
+          summary = $4,
+          image_url = $5,
+          format = $6
+      WHERE id = $7
+      RETURNING *
+      `,
+      [title, author, price_new_ref, summary, image_url, format, id]
+    );
+
+    res.json({
+      message: "Book updated",
+      book: result.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
 

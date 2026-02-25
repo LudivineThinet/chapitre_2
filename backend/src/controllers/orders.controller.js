@@ -1,14 +1,20 @@
 import pool from '../config/db.js'
 
 export const createOrder = async (req, res) => {
+  console.log("CREATE ORDER HIT");
   const userId = req.user.id
-  const { items } = req.body
+  const { items, address_id } = req.body
 
   if (!items || items.length === 0) {
     return res.status(400).json({
       message: 'Order items are required'
     })
   }
+  if (!address_id) {
+  return res.status(400).json({
+    message: "Address is required"
+  })
+}
 
   try {
     let total = 0
@@ -39,13 +45,13 @@ export const createOrder = async (req, res) => {
 
     //Créer la commande
     const orderResult = await pool.query(
-      `
-      INSERT INTO orders (user_id, total)
-      VALUES ($1, $2)
-      RETURNING *
-      `,
-      [userId, total]
-    )
+  `
+  INSERT INTO orders (user_id, total, address_id)
+  VALUES ($1, $2, $3)
+  RETURNING *
+  `,
+  [userId, total, address_id]
+)
 
     const order = orderResult.rows[0]
 
