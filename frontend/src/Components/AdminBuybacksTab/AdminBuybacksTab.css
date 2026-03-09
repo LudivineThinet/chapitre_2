@@ -1,0 +1,25 @@
+.buybacks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.buybacks-table th,
+.buybacks-table td {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+}
+
+.buybacks-table th {
+  background: #eee;
+}
+
+button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}

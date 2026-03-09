@@ -1,0 +1,12 @@
+.buybacks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buyback-card {
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff;
+}

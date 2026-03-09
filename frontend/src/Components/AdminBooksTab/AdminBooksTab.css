@@ -1,0 +1,78 @@
+.admin-form {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 400px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-size: 0.9rem; /* plus petit */
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 0.4rem 0.6rem; /* moins gros */
+  vertical-align: top;
+}
+
+th {
+  background: #eee;
+  font-weight: 600;
+  text-align: left;
+}
+
+img {
+  width: 35px; /* plus petit */
+  height: auto;
+  border-radius: 4px;
+}
+
+.summary-cell {
+  max-width: 250px;
+  white-space: normal;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+tr:hover {
+  background: #f9f9f9;
+}
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  text-decoration: underline;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+}
+
+.modal-content p {
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+

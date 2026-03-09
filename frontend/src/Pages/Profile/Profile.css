@@ -1,0 +1,30 @@
+
+/* layout général */
+.profile-layout {
+  display: flex;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* sidebar gauche */
+.profile-sidebar {
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* boutons menu */
+.profile-sidebar button {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+/* contenu principal */
+.profile-main {
+  flex: 1;
+}

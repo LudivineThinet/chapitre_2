@@ -1,0 +1,27 @@
+.cancel-page {
+  max-width: 500px;
+  margin: 4rem auto;
+  padding: 2rem;
+
+  text-align: center;
+
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: white;
+}
+
+.cancel-page h1 {
+  margin-bottom: 1rem;
+}
+
+.cancel-page button {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.2rem;
+
+  border: none;
+  border-radius: 6px;
+  background: black;
+  color: white;
+
+  cursor: pointer;
+}
