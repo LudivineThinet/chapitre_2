@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ProfileAddressesTab.css";
+import trash from "../../assets/icon/trash.svg";
 
 function ProfileAddressesTab() {
   const [addresses, setAddresses] = useState([]);
@@ -132,8 +133,8 @@ function ProfileAddressesTab() {
     <button
       onClick={() => handleDeleteAddress(addr.id)}
       style={{ marginTop: "8px" }}
-    >
-      🗑️ Supprimer
+    > 
+      <img src={trash} alt="Supprimer" style={{ width: "18px", marginLeft: "4px" }} />
     </button>
   </div>
 ))}

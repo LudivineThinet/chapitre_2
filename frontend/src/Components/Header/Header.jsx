@@ -4,6 +4,9 @@ import { useState } from "react";
 import "./Header.css";
 import logo from "../../assets/Image/logo.png";
 
+import cartIcon from "../../assets/icon/cart.svg";
+import profileIcon from "../../assets/icon/profile.svg";
+
 function Header() {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
@@ -52,6 +55,7 @@ function Header() {
             type="text"
             placeholder="Rechercher un livre, un auteur..."
             value={search}
+            
             onChange={(e) => setSearch(e.target.value)}
           />
         </form>
@@ -59,25 +63,20 @@ function Header() {
         {/* Actions */}
         <div className="header-actions">
                   {token ? (
-          <Link to="/profile" className="nav-link">
-            Profil
-          </Link>
+          <Link to="/profile" className="icon-link">
+  <img src={profileIcon} alt="Profil" />
+</Link>
         ) : (
           <Link to="/login" className="nav-link">
-            Connexion
+              <img src={profileIcon} alt="Profil" />
+
           </Link>
         )}
 
 
-          <Link to="/cart" className="nav-link">
-            Panier
-          </Link>
-
-          {role === "admin" && (
-  <Link to="/admin/buybacks" className="nav-link">
-    Admin
-  </Link>
-)}
+          <Link to="/cart" className="icon-link">
+  <img src={cartIcon} alt="Panier" />
+</Link>
 
         </div>
       </div>

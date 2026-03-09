@@ -4,37 +4,67 @@ import { createContext, useState, useEffect } from "react";
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  // Charger le panier depuis localStorage au démarrage
+  //userEmail en state pour détecter les changements de session
+  const [userEmail, setUserEmail] = useState(
+    () => localStorage.getItem("userEmail") ?? null
+  );
+
   const [cartItems, setCartItems] = useState(() => {
-    const savedCart = localStorage.getItem("cart");
-    return savedCart ? JSON.parse(savedCart) : [];
+    const email = localStorage.getItem("userEmail");
+    if (!email) return [];
+
+    //try/catch pour éviter un crash si le localStorage est corrompu
+    try {
+      const savedCart = localStorage.getItem("cart_" + email);
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (e) {
+      console.error("Erreur lors du chargement du panier :", e);
+      return [];
+    }
   });
 
   // Sauvegarder le panier à chaque modification
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (!userEmail) return;
 
-  // Ajouter un item au panier
-function addToCart(item) {
-  setCartItems((prev) => {
-    // Vérifier si cet item existe déjà (même book_item_id)
-    const existingItem = prev.find((i) => i.id === item.id);
+    localStorage.setItem(
+      "cart_" + userEmail,
+      JSON.stringify(cartItems)
+    );
+  }, [cartItems, userEmail]);
 
-    if (existingItem) {
-      // Si oui → augmenter la quantité
-      return prev.map((i) =>
-        i.id === item.id
-          ? { ...i, quantity: i.quantity + 1 }
-          : i
-      );
+  // Recharger le panier si l'utilisateur change
+  useEffect(() => {
+    if (!userEmail) {
+      setCartItems([]);
+      return;
     }
 
-    // Sinon → ajouter avec quantity = 1
-    return [...prev, { ...item, quantity: 1 }];
-  });
-}
+    try {
+      const savedCart = localStorage.getItem("cart_" + userEmail);
+      setCartItems(savedCart ? JSON.parse(savedCart) : []);
+    } catch (e) {
+      console.error("Erreur lors du rechargement du panier :", e);
+      setCartItems([]);
+    }
+  }, [userEmail]);
 
+  // Ajouter un item au panier
+  function addToCart(item) {
+    setCartItems((prev) => {
+      const existingItem = prev.find((i) => i.id === item.id);
+
+      if (existingItem) {
+        return prev.map((i) =>
+          i.id === item.id
+            ? { ...i, quantity: i.quantity + 1 }
+            : i
+        );
+      }
+
+      return [...prev, { ...item, quantity: 1 }];
+    });
+  }
 
   // Supprimer un item du panier
   function removeFromCart(id) {
@@ -42,14 +72,17 @@ function addToCart(item) {
   }
 
   // Vider le panier
-function clearCart() {
-  setCartItems([]);
-}
+  function clearCart() {
+    setCartItems([]);
 
+    if (userEmail) {
+      localStorage.removeItem("cart_" + userEmail);
+    }
+  }
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart }}
+      value={{ cartItems, addToCart, removeFromCart, clearCart, setUserEmail }}
     >
       {children}
     </CartContext.Provider>

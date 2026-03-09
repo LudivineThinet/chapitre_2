@@ -46,8 +46,8 @@ export const createOrder = async (req, res) => {
     //Créer la commande
     const orderResult = await pool.query(
   `
-  INSERT INTO orders (user_id, total, address_id)
-  VALUES ($1, $2, $3)
+  INSERT INTO orders (user_id, total, address_id, status)
+  VALUES ($1, $2, $3, 'paid')
   RETURNING *
   `,
   [userId, total, address_id]
@@ -144,3 +144,28 @@ export const getAllOrders = async (req, res) => {
     })
   }
 }
+
+
+export const updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  try {
+    const result = await pool.query(
+      `
+      UPDATE orders
+      SET status = $1
+      WHERE id = $2
+      RETURNING *
+      `,
+      [status, id]
+    );
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};

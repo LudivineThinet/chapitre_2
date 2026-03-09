@@ -7,9 +7,9 @@ function BookCard({ book }) {
 
       {/* Cover */}
       <img
+        className="book-card-image"
         src={book.image_url}
         alt={book.title}
-        width="150"
       />
 
       {/* Title */}

@@ -13,6 +13,7 @@ import adminOrdersRoutes from './routes/admin.orders.routes.js'
 import paymentsRoutes from './routes/payments.routes.js'
 import genresRoutes from './routes/genres.routes.js'
 import addressesRoutes from './routes/addresses.routes.js'
+import payoutInfosRoutes from './routes/payoutInfos.routes.js'
 
 import './config/db.js'
 
@@ -35,6 +36,7 @@ app.use('/admin/orders', adminOrdersRoutes)
 app.use('/payments', paymentsRoutes)
 app.use('/genres', genresRoutes)
 app.use('/addresses', addressesRoutes)
+app.use('/payout-infos', payoutInfosRoutes)
 
 app.get('/', (req, res) => {
   res.send('API Chapitre 2')

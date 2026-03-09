@@ -1,7 +1,7 @@
 import express from 'express'
 import {
   createOrder,
-  getMyOrders
+  getMyOrders,
 } from '../controllers/orders.controller.js'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 

@@ -75,3 +75,28 @@ export const updateMe = async (req, res) => {
     });
   }
 };
+
+export const deleteMyAccount = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    await pool.query(
+      `
+      DELETE FROM users
+      WHERE id = $1
+      `,
+      [userId]
+    );
+
+    res.json({
+      message: "Account deleted",
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Server error",
+    });
+  }
+};

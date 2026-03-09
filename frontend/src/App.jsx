@@ -13,7 +13,7 @@ import Register from "./pages/Register/Register";
 import Sell from "./pages/Sell/Sell";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import AdminLayout from "./pages/Admin/AdminLayout";
+import AdminLayout from "./pages/AdminLayout/AdminLayout";
 import AdminBuybacks from "./pages/AdminBuybacks/AdminBuybacks";
 import AdminOrders from "./pages/AdminOrders/AdminOrders";
 import AdminBooks from "./pages/AdminBooks/AdminBooks";

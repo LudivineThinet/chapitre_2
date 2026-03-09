@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { loginUser } from "../../services/api";
+import { CartContext } from "../../context/CartContext";
 
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
+  const { setUserEmail } = useContext(CartContext); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +31,7 @@ function Login() {
       localStorage.setItem("userEmail", data.user.email);
       localStorage.setItem("userRole", data.user.role);
 
+      setUserEmail(data.user.email); 
 
       // Redirection après connexion
       navigate("/");
