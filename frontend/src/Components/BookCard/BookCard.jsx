@@ -9,6 +9,7 @@ function BookCard({ book }) {
       <img
         className="book-card-image"
         src={book.image_url}
+        onError={(e) => e.target.src = "/images/no-cover.jpg"}
         alt={book.title}
       />
 

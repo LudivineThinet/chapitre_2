@@ -1,19 +1,15 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
-// Contexte du panier
 export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  //userEmail en state pour détecter les changements de session
-  const [userEmail, setUserEmail] = useState(
-    () => localStorage.getItem("userEmail") ?? null
-  );
+  const { userEmail } = useContext(AuthContext); // 👈 on lit le userEmail depuis AuthContext
 
   const [cartItems, setCartItems] = useState(() => {
     const email = localStorage.getItem("userEmail");
     if (!email) return [];
 
-    //try/catch pour éviter un crash si le localStorage est corrompu
     try {
       const savedCart = localStorage.getItem("cart_" + email);
       return savedCart ? JSON.parse(savedCart) : [];
@@ -81,9 +77,7 @@ export function CartProvider({ children }) {
   }
 
   return (
-    <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart, setUserEmail }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );

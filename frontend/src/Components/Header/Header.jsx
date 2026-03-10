@@ -18,12 +18,12 @@ function Header() {
     "Fantasy",
     "Romance",
     "Thriller",
-    "Horror",
-    "Science Fiction",
-    "Classic",
-    "Category 7",
-    "Category 8",
-    "Category 9",
+    "Horreur",
+    "Science-Fiction",
+    "Classique",
+    "Humour",
+    "Enfant",
+    "Arts et Sciences",
   ];
 
   function handleSearchSubmit(e) {

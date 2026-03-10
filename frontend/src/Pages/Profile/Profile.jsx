@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
-import { CartContext } from "../../context/CartContext";
+
+import { AuthContext } from "../../context/AuthContext";
 
 //components
 import ProfileOrdersTab from "../../components/ProfileOrdersTab/ProfileOrdersTab";
@@ -13,17 +14,12 @@ import ProfilePayoutTab from "../../components/ProfilePayoutTab/ProfilePayoutTab
 
 function Profile() {
   const navigate = useNavigate();
-  const { setUserEmail } = useContext(CartContext);
-  const email = localStorage.getItem("userEmail");
-  const role = localStorage.getItem("userRole");
+  const { userEmail, userRole, logout } = useContext(AuthContext);
 
   const [activeTab, setActiveTab] = useState("infos");
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userRole");
-    setUserEmail(null);
+    logout();
     navigate("/");
   }
 
@@ -45,12 +41,7 @@ function Profile() {
     });
 
     // logout post supression
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userRole");
-    setUserEmail(null);
-
-    // redirection accueil
+    logout();
     navigate("/");
 
   } catch (error) {
@@ -65,9 +56,9 @@ function Profile() {
       {/* HEADER USER */}
       <div className="profile-header">
         <p>
-          Connecté avec : <strong>{email}</strong>
+          Connecté avec : <strong>{userEmail}</strong>
         </p>
-        <span className="role-badge">{role}</span>
+        <span className="role-badge">{userRole}</span>
       </div>
 
       {/* NAV ONGLET */}
@@ -94,7 +85,7 @@ function Profile() {
       Recevoir mes paiements
     </button>
 
-    {role === "admin" && (
+    {userRole === "admin" && (
       <button onClick={() => navigate("/admin")}>
         🔐 Admin
       </button>
