@@ -57,7 +57,10 @@ function ProfileBuybacksTab() {
               </p>
 
               <p>
-                <strong>Statut :</strong> {b.status}
+                <strong>Statut :</strong>{" "}
+                <span className="buyback-status">
+                  {b.status}
+                </span>
               </p>
 
               <p>

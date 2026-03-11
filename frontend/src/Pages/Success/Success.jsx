@@ -75,7 +75,7 @@ function Success() {
   }, [cartItems, clearCart]);
 
   return (
-    <div className="success-container">
+    <div className="success-page">
       <h1>Paiement réussi ✅</h1>
 
       {status === "loading" && (

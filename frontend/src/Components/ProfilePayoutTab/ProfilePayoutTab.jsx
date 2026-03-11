@@ -98,7 +98,7 @@ function ProfilePayoutTab() {
           </p>
         </div>
       )}
-
+      {editing && (
       <div className="payout-form">
         <label>Titulaire du compte</label>
         <input
@@ -116,6 +116,7 @@ function ProfilePayoutTab() {
           disabled={!editing}
         />
       </div>
+      )}
 
       {!editing ? (
         <button onClick={() => setEditing(true)}>

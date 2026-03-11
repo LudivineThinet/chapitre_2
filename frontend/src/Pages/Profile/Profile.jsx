@@ -65,23 +65,38 @@ function Profile() {
       <div className="profile-layout">
   {/* MENU GAUCHE */}
   <div className="profile-sidebar">
-    <button onClick={() => setActiveTab("infos")}>
+    <button
+      className={activeTab === "infos" ? "active" : ""}
+      onClick={() => setActiveTab("infos")}
+    >
       Mes infos
     </button>
 
-    <button onClick={() => setActiveTab("orders")}>
+    <button
+      className={activeTab === "orders" ? "active" : ""}
+      onClick={() => setActiveTab("orders")}
+    >
       Mes commandes
     </button>
 
-    <button onClick={() => setActiveTab("buybacks")}>
+    <button
+      className={activeTab === "buybacks" ? "active" : ""}
+      onClick={() => setActiveTab("buybacks")}
+    >
       Mes ventes
     </button>
 
-    <button onClick={() => setActiveTab("addresses")}>
+    <button
+      className={activeTab === "addresses" ? "active" : ""}
+      onClick={() => setActiveTab("addresses")}
+    >
       Mes adresses
     </button>
 
-    <button onClick={() => setActiveTab("payout")}>
+    <button
+      className={activeTab === "payout" ? "active" : ""}
+      onClick={() => setActiveTab("payout")}
+    >
       Recevoir mes paiements
     </button>
 
@@ -103,17 +118,17 @@ function Profile() {
 </div>
 
       
-
+<div className="profile-actions">
       <button className="logout-btn" onClick={handleLogout}>
         Se déconnecter
       </button>
 
       <button
         className="delete-account-btn"
-        onClick={handleDeleteAccount}
-      >
+        onClick={handleDeleteAccount}>
         Supprimer mon compte
       </button>
+    </div>
     </div>
   );
 }

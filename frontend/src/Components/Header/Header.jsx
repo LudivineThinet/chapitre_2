@@ -67,10 +67,9 @@ function Header() {
   <img src={profileIcon} alt="Profil" />
 </Link>
         ) : (
-          <Link to="/login" className="nav-link">
-              <img src={profileIcon} alt="Profil" />
-
-          </Link>
+          <Link to="/login" className="icon-link">
+  <img src={profileIcon} alt="Connexion" />
+</Link>
         )}
 
 

@@ -1,47 +1,53 @@
-.admin-form {
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  max-width: 400px;
-}
+/* ================= TABLEAU ================= */
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1.5rem;
-  font-size: 0.9rem; /* plus petit */
-}
+  margin-top: 24px;
 
-th,
-td {
+  background: white;
   border: 1px solid #ddd;
-  padding: 0.4rem 0.6rem; /* moins gros */
-  vertical-align: top;
+  border-radius: 10px;
+  overflow: hidden;
+
+  font-size: 0.9rem;
 }
 
 th {
-  background: #eee;
-  font-weight: 600;
+  background: #fff9f3;
+  color: var(--vert);
   text-align: left;
+
+  padding: 12px;
 }
 
+td {
+  padding: 10px 12px;
+  border-top: 1px solid #eee;
+  vertical-align: top;
+}
+
+/* hover ligne */
+
+tbody tr:hover {
+  background: #fafafa;
+}
+
+/* image */
+
 img {
-  width: 35px; /* plus petit */
-  height: auto;
+  width: 35px;
   border-radius: 4px;
 }
 
+/* résumé */
+
 .summary-cell {
-  max-width: 250px;
-  white-space: normal;
+  max-width: 260px;
   font-size: 0.85rem;
   color: #444;
 }
 
-tr:hover {
-  background: #f9f9f9;
-}
 .clickable {
   cursor: pointer;
 }
@@ -50,29 +56,125 @@ tr:hover {
   text-decoration: underline;
 }
 
+/* ================= HEADER ADMIN ================= */
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-book-trigger {
+  cursor: pointer;
+  color: var(--terracotta);
+  font-size: 1.1rem;
+}
+
+.add-book-trigger:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ================= FORMULAIRE ================= */
+
+.admin-form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  padding: 9px 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  font-size: 0.9rem;
+}
+
+.admin-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: var(--terracotta);
+}
+
+/* bouton */
+
+.admin-form button {
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--terracotta);
+  color: white;
+
+  cursor: pointer;
+}
+
+.admin-form button:hover {
+  opacity: 0.9;
+}
+
+/* ================= GRILLE 2 COLONNES ================= */
+
+.admin-form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 20px;
+  max-width: 100% !important;
+  flex-direction: unset;
+}
+
+.admin-form-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+/* ================= MODALE ================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+
+  background: rgba(0,0,0,0.6);
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 100;
 }
 
 .modal-content {
   background: white;
-  padding: 2rem;
+
+  padding: 28px;
   border-radius: 10px;
-  max-width: 600px;
+
   width: 90%;
+  max-width: 760px;
+
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  margin-bottom: 12px;
 }
 
 .modal-content p {
-  margin-top: 1rem;
   line-height: 1.5;
 }
-

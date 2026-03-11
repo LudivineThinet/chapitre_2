@@ -1,64 +1,119 @@
+/* Header global */
 .header {
-  border-bottom: 1px solid #ddd;
-  background: white;
+  background: var(--creme);
+  border-bottom: 1px solid var(--rose);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* Top line */
+/* Ligne principale */
 .header-top {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 3rem;
   padding: 1rem 2rem;
 }
 
+/* Logo */
 .logo img {
-  height: 45px;
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  display: block;
 }
 
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Liens */
 .nav-link {
   text-decoration: none;
-  color: black;
+  font-size: 0.95rem;
+  color: var(--vert);
   font-weight: 500;
+  transition: color 0.2s ease;
+  white-space: nowrap;
 }
 
+.nav-link:hover {
+  color: var(--terracotta);
+}
+
+/* Search */
 .search-form {
-  flex: 1;
+  width: 70%;
 }
 
 .search-form input {
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--rose);
+  background: white;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
 }
 
+.search-form input:focus {
+  outline: none;
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 2px #f7cdd050;
+}
+
+/* Actions icons */
 .header-actions {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 1.5rem;
+  margin-left: auto;
 }
 
-/* Second line */
-.header-categories {
+.icon-link {
   display: flex;
-  gap: 1rem;
-  padding: 0.8rem 2rem;
-  border-top: 1px solid #eee;
-  overflow-x: auto;
+  align-items: center;
+  justify-content: center;
 }
 
+.icon-link img {
+  height: 36px;
+  width: 36px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.icon-link img:hover {
+  transform: scale(1.15);
+}
+
+/* Ligne catégories */
+.header-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  align-items: center;
+  padding: 0.8rem 2rem;
+  border-top: 1px solid var(--rose);
+  background: #fff9f3;
+  text-align: center;
+}
+
+.category-link:first-child {
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+/* Catégories */
 .category-link {
   text-decoration: none;
-  color: #333;
-  font-size: 0.95rem;
+  color: var(--vert);
+  font-size: 0.85rem;
+  font-weight: 500;
   white-space: nowrap;
+  transition: color 0.2s ease;
 }
 
 .category-link:hover {
-  text-decoration: underline;
+  color: var(--terracotta);
 }
-.category-link {
-  margin-right: 1rem;
-  text-decoration: none;
-  color: inherit;
-  font-weight: 500;
-}
+

@@ -121,7 +121,7 @@ async function handleConfirmSell() {
     <strong>{item.title}</strong> — {item.author}
     <br />
     État : {item.condition} <br />
-    Prix estimé : {item.buy_price} €
+    Prix estimé : {item.buy_price} € <br />
 
     {/* Bouton retirer */}
     <button

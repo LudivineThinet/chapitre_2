@@ -58,7 +58,10 @@ function ProfileOrdersTab() {
             </p>
 
             <p>
-              <strong>Statut :</strong> {order.status || "—"}
+              <strong>Statut :</strong>{" "}
+              <span className="order-status">
+                {order.status || "—"}
+              </span>
             </p>
           </div>
         ))}

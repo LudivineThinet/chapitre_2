@@ -1,6 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 
+import "./Checkout.css";
+
 function Checkout() {
   const { cartItems } = useContext(CartContext);
 
@@ -131,129 +133,133 @@ function Checkout() {
     return <p>Votre panier est vide.</p>;
   }
 
-  return (
-    <div>
-      <h1>Validation de commande</h1>
+    return (
+  <div className="checkout-page">
+    <h1>Validation de commande</h1>
+
+    <div className="checkout-layout">
 
       {/* ================= ADRESSE ================= */}
-      <h2>Adresse de livraison</h2>
+      <div className="checkout-address">
 
-      {/* 🔹 choix mode */}
-      <div style={{ marginBottom: "16px" }}>
-        <label>
-          <input
-            type="radio"
-            checked={addressMode === "saved"}
-            onChange={() => setAddressMode("saved")}
-          />
-          Utiliser une adresse enregistrée
-        </label>
+        <h2>Adresse de livraison</h2>
 
-        <br />
+        {/* choix mode */}
+        <div className="address-mode">
+          <label>
+            <input
+              type="radio"
+              checked={addressMode === "saved"}
+              onChange={() => setAddressMode("saved")}
+            />
+            Utiliser une adresse enregistrée
+          </label>
 
-        <label>
-          <input
-            type="radio"
-            checked={addressMode === "new"}
-            onChange={() => setAddressMode("new")}
-          />
-          Utiliser une nouvelle adresse
-        </label>
+          <label>
+            <input
+              type="radio"
+              checked={addressMode === "new"}
+              onChange={() => setAddressMode("new")}
+            />
+            Utiliser une nouvelle adresse
+          </label>
+        </div>
+
+        {/* ===== ADRESSES EXISTANTES ===== */}
+        {addressMode === "saved" ? (
+          loadingAddresses ? (
+            <p>Chargement des adresses...</p>
+          ) : addresses.length === 0 ? (
+            <p>Aucune adresse enregistrée. Passez en nouvelle adresse.</p>
+          ) : (
+            <div className="address-list">
+              {addresses.map((addr) => (
+                <label key={addr.id} className="address-card">
+                  <input
+                    type="radio"
+                    name="address"
+                    value={addr.id}
+                    checked={selectedAddressId === addr.id}
+                    onChange={() => setSelectedAddressId(addr.id)}
+                  />
+
+                  <div className="address-content">
+                    <strong>{addr.full_name}</strong>
+                    <span>{addr.street}</span>
+                    <span>
+                      {addr.postal_code} {addr.city}
+                    </span>
+                  </div>
+                </label>
+              ))}
+            </div>
+          )
+        ) : (
+
+          /* ===== NOUVELLE ADRESSE ===== */
+          <div className="address-form">
+            <input
+              name="full_name"
+              placeholder="Nom et Prénom"
+              value={newAddress.full_name}
+              onChange={handleNewAddressChange}
+            />
+
+            <input
+              name="street"
+              placeholder="Rue"
+              value={newAddress.street}
+              onChange={handleNewAddressChange}
+            />
+
+            <input
+              name="postal_code"
+              placeholder="Code postal"
+              value={newAddress.postal_code}
+              onChange={handleNewAddressChange}
+            />
+
+            <input
+              name="city"
+              placeholder="Ville"
+              value={newAddress.city}
+              onChange={handleNewAddressChange}
+            />
+
+            <input
+              name="country"
+              placeholder="Pays"
+              value={newAddress.country}
+              onChange={handleNewAddressChange}
+            />
+          </div>
+        )}
       </div>
 
-      {/* ===== ADRESSES EXISTANTES ===== */}
-      {addressMode === "saved" ? (
-        loadingAddresses ? (
-          <p>Chargement des adresses...</p>
-        ) : addresses.length === 0 ? (
-          <p>Aucune adresse enregistrée. Passez en nouvelle adresse.</p>
-        ) : (
-          <div>
-            {addresses.map((addr) => (
-              <label
-                key={addr.id}
-                style={{ display: "block", marginBottom: "8px" }}
-              >
-                <input
-                  type="radio"
-                  name="address"
-                  value={addr.id}
-                  checked={selectedAddressId === addr.id}
-                  onChange={() => setSelectedAddressId(addr.id)}
-                />
-                {" "}
-                {addr.full_name} — {addr.street}, {addr.postal_code}{" "}
-                {addr.city}
-              </label>
-            ))}
-          </div>
-        )
-      ) : (
-        // ===== NOUVELLE ADRESSE =====
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-            maxWidth: "400px",
-          }}
-        >
-          <input
-            name="full_name"
-            placeholder="Nom et Prénom"
-            value={newAddress.full_name}
-            onChange={handleNewAddressChange}
-          />
-
-          <input
-            name="street"
-            placeholder="Rue"
-            value={newAddress.street}
-            onChange={handleNewAddressChange}
-          />
-
-          <input
-            name="postal_code"
-            placeholder="Code postal"
-            value={newAddress.postal_code}
-            onChange={handleNewAddressChange}
-          />
-
-          <input
-            name="city"
-            placeholder="Ville"
-            value={newAddress.city}
-            onChange={handleNewAddressChange}
-          />
-
-          <input
-            name="country"
-            placeholder="Pays"
-            value={newAddress.country}
-            onChange={handleNewAddressChange}
-          />
-        </div>
-      )}
-
       {/* ================= RÉCAP ================= */}
-      <h2>Récapitulatif</h2>
+      <div className="checkout-summary">
 
-      <ul>
-        {cartItems.map((item) => (
-          <li key={item.id}>
-            {item.title} ({item.condition}) x {item.quantity} — {item.price} €
-          </li>
-        ))}
-      </ul>
+        <h2>Récapitulatif</h2>
 
-      <h3>Total : {total.toFixed(2)} €</h3>
+        <ul>
+          {cartItems.map((item) => (
+            <li key={item.id}>
+              {item.title} ({item.condition}) x {item.quantity} — {item.price} €
+            </li>
+          ))}
+        </ul>
 
-      {/* ================= PAIEMENT ================= */}
-      <button onClick={handleStripeCheckout}>
-        Paiement
-      </button>
+        <h3>Total : {total.toFixed(2)} €</h3>
+
+        <button className="checkout-btn" onClick={handleStripeCheckout}>
+          Paiement
+        </button>
+
+      </div>
+
     </div>
-  );
+  </div>
+);
 }
 
 export default Checkout;

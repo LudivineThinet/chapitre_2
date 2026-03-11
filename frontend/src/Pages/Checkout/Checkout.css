@@ -1,0 +1,174 @@
+.checkout-page {
+  max-width: 1100px;
+  margin: auto;
+  padding: 3rem 2rem;
+}
+
+.checkout-page h1 {
+  margin-bottom: 2rem;
+  color: var(--vert);
+}
+
+/* Layout principal */
+
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+/* Bloc adresse */
+
+.checkout-address {
+  border: 1px solid var(--rose);
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: #fff9f3;
+}
+
+/* Choix mode */
+
+.address-mode {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.address-mode label {
+  flex: 1;
+  padding: 10px;
+
+  border: 1px solid var(--rose);
+  border-radius: 8px;
+
+  background: white;
+  text-align: center;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.address-mode input {
+  display: none;
+}
+
+.address-mode label:hover {
+  border-color: var(--terracotta);
+}
+
+/* Cartes adresses */
+.address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.address-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  border: 1px solid var(--rose);
+  border-radius: 10px;
+
+  padding: 12px;
+  background: white;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.address-card:hover {
+  border-color: var(--terracotta);
+}
+
+/* radio */
+
+.address-card input {
+  margin-top: 4px;
+}
+
+/* contenu adresse */
+
+.address-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.9rem;
+}
+
+.address-content strong {
+  color: var(--vert);
+}
+
+/* Form adresse */
+
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.address-form input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--rose);
+}
+
+.address-form input:focus {
+  outline: none;
+  border-color: var(--terracotta);
+}
+
+/* Bloc résumé */
+
+.checkout-summary {
+  border: 1px solid var(--rose);
+  border-radius: 12px;
+  padding: 1.5rem;
+
+  background: #fff9f3;
+  height: fit-content;
+}
+
+.checkout-summary ul {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-summary li {
+  margin-bottom: 6px;
+}
+
+/* Total */
+
+.checkout-summary h3 {
+  margin-top: 1rem;
+  color: var(--terracotta);
+}
+
+/* Bouton paiement */
+
+.checkout-btn {
+  width: 100%;
+  margin-top: 1rem;
+
+  padding: 0.8rem;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--terracotta);
+  color: white;
+
+  font-size: 1rem;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+}

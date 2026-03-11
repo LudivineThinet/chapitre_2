@@ -1,27 +1,50 @@
 .cancel-page {
-  max-width: 500px;
-  margin: 4rem auto;
-  padding: 2rem;
+  max-width: 520px;
+  margin: 5rem auto;
+  padding: 2.5rem;
 
   text-align: center;
 
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: white;
+  border: 1px solid var(--rose);
+  border-radius: 14px;
+
+  background: #fff9f3;
 }
+
+/* titre */
 
 .cancel-page h1 {
   margin-bottom: 1rem;
+  color: var(--vert);
+  font-size: 1.8rem;
 }
+
+/* texte */
+
+.cancel-page p {
+  margin-bottom: 0.6rem;
+  color: #555;
+}
+
+/* bouton */
 
 .cancel-page button {
   margin-top: 1.5rem;
-  padding: 0.7rem 1.2rem;
+  padding: 0.7rem 1.4rem;
 
   border: none;
-  border-radius: 6px;
-  background: black;
+  border-radius: 8px;
+
+  background: var(--terracotta);
   color: white;
 
+  font-size: 0.95rem;
+
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-page button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
 }
