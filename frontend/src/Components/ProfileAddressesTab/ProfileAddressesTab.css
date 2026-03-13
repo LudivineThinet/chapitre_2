@@ -1,26 +1,112 @@
+.addresses-tab {
+  max-width: 700px;
+}
+
+/* titre */
+
+.addresses-tab h3 {
+  margin-bottom: 16px;
+  color: var(--vert);
+}
+
+/* liste */
+
 .addresses-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
+  gap: 14px;
+  margin-bottom: 28px;
 }
 
+/* carte adresse */
+
 .address-card {
-  border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 8px;
-  background: #fff;
+  border: 1px solid var(--rose);
+  padding: 14px 16px;
+
+  border-radius: 10px;
+  background: #fff9f3;
+
+  position: relative;
 }
+
+/* texte */
+
+.address-card p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+}
+
+.address-card strong {
+  color: var(--vert);
+}
+
+/* bouton suppression */
+
+.address-card button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  border: none;
+  background: transparent;
+
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.address-card button:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.address-card img {
+  width: 16px;
+}
+
+/* formulaire */
 
 .address-form {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-width: 400px;
+  gap: 10px;
+  max-width: 420px;
 }
 
+/* champs */
+
 .address-form input {
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  padding: 9px 10px;
+
+  border: 1px solid var(--rose);
+  border-radius: 8px;
+
+  background: white;
+}
+
+.address-form input:focus {
+  outline: none;
+  border-color: var(--terracotta);
+}
+
+/* bouton */
+
+.address-form button {
+  margin-top: 6px;
+
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--terracotta);
+  color: white;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.address-form button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }

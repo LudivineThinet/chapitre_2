@@ -1,0 +1,132 @@
+.book-detail-page {
+  padding: 3rem 2rem;
+}
+
+/* container centré */
+
+.book-detail-container {
+  max-width: 1000px;
+  margin: auto;
+
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 3rem;
+
+  align-items: start;
+}
+
+/* image */
+
+.book-detail-image img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* info */
+
+.book-detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* titre */
+
+.book-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+  color: var(--vert);
+}
+
+/* auteur */
+
+.book-author {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.2rem;
+}
+
+/* résumé */
+
+.book-summary {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* meta */
+
+.book-meta {
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.book-meta p {
+  margin: 4px 0;
+}
+
+/* bouton */
+
+.add-cart-btn {
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+
+  background: var(--terracotta);
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-cart-btn:hover {
+  opacity: 0.9;
+}
+
+.add-cart-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* messages */
+
+.select-condition {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 0.5rem;
+}
+
+.no-stock {
+  font-weight: 600;
+}
+
+.add-cart-btn {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+
+  background: var(--terracotta);
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 0.95rem;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* hover */
+
+.add-cart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* click success */
+
+.add-cart-btn.added {
+  background: var(--vert);
+  transform: scale(1.05);
+}

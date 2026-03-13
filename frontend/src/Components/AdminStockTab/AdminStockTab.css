@@ -1,33 +1,150 @@
+/* ================= TABLEAU ================= */
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 2rem;
-}
+  margin-top: 24px;
 
-td,
-th {
+  background: white;
   border: 1px solid #ddd;
-  padding: 0.7rem;
+  border-radius: 10px;
+  overflow: hidden;
+
+  font-size: 0.9rem;
 }
 
 th {
-  background: #eee;
+  background: #fff9f3;
+  color: var(--vert);
+  text-align: left;
+  padding: 12px;
 }
 
-button {
-  margin-right: 0.5rem;
-  padding: 0.3rem 0.7rem;
+td {
+  padding: 10px 12px;
+  border-top: 1px solid #eee;
+}
+
+td button {
+  padding: 4px 10px;
+  margin-right: 16px;
+
+  border: none;
+  border-radius: 6px;
+
+  background: #e39c9c;
+  cursor: pointer;
+
+  font-size: 0.8rem;
+}
+
+td button:hover {
+  background: var(--terracotta);
+  color: white;
+}
+
+tbody tr:hover {
+  background: #fafafa;
+}
+td:nth-child(4) {
+  font-weight: 600;
+  color: var(--vert);
+}
+
+/* ================= HEADER ================= */
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-book-trigger {
+  cursor: pointer;
+
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  background: var(--terracotta);
+  color: white;
+
+  font-size: 0.9rem;
+}
+
+.add-book-trigger:hover {
+  opacity: 0.9;
+}
+
+/* ================= FORM ================= */
+
+.admin-form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+}
+
+.admin-form input,
+.admin-form select {
+  padding: 9px 10px;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+
+  font-size: 0.9rem;
+}
+
+.admin-form input:focus,
+.admin-form select:focus {
+  outline: none;
+  border-color: var(--terracotta);
+}
+
+.admin-form button {
+  padding: 8px 14px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--terracotta);
+  color: white;
+
   cursor: pointer;
 }
 
-.error {
-  color: red;
+.admin-form button:hover {
+  opacity: 0.9;
 }
 
-.admin-form {
-  margin-top: 2rem;
+/* ================= MODALE ================= */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.6);
+
   display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  max-width: 400px;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 100;
+}
+
+.modal-content {
+  background: white;
+
+  padding: 28px;
+  border-radius: 10px;
+
+  width: 90%;
+  max-width: 500px;
+
+  max-height: 90vh;
+  overflow-y: auto;
 }

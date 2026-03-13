@@ -14,41 +14,39 @@ function Footer() {
         {/* Logo */}
         <div className="footer-section">
           <img src={logo} alt="Chapitre 2" className="footer-logo" />
-          <p>Give books a second life 📚</p>
         </div>
 
         {/* Navigation */}
         <div className="footer-section">
           <h3>Navigation</h3>
-          <Link to="/">Home</Link>
-          <Link to="/books">Books</Link>
-          <Link to="/sell">Sell your books</Link>
+          <Link to="/">Accueil</Link>
+          <Link to="/books">Tout les livres</Link>
+          <Link to="/sell">Vendre vos livres</Link>
         </div>
 
         {/* Support */}
         <div className="footer-section">
           <h3>Support</h3>
           <Link to="/faq">FAQ</Link>
-          <Link to="/contact">Contact us</Link>
-          <Link to="/about">About</Link>
+          <Link to="/contact">Nous contacter</Link>
+          <Link to="/about">À propos</Link>
         </div>
 
         {/* Legal */}
         <div className="footer-section">
           <h3>Legal</h3>
-          <Link to="/terms">Terms of use</Link>
-          <Link to="/privacy">Privacy policy</Link>
-          <Link to="/legal">Legal notice</Link>
+          <Link to="/terms">Conditions d'utilisation</Link>
+          <Link to="/privacy">Politique de confidentialité</Link>
+          <Link to="/legal">Mentions légales</Link>
         </div>
 
         {/* Newsletter */}
         <div className="footer-section">
           <h3>Newsletter</h3>
-          <p>Get updates about new arrivals.</p>
-
+          <p>Inscrivez-vous à notre newsletter</p>
           <form className="newsletter-form">
-            <input type="email" placeholder="Your email" />
-            <button type="submit">Subscribe</button>
+            <input type="email" placeholder="Votre email" />
+            <button type="submit">S'abonner</button>
           </form>
         </div>
 
@@ -68,7 +66,7 @@ function Footer() {
 
       {/* Bottom */}
       <div className="footer-bottom">
-        <p>© {new Date().getFullYear()} Chapitre 2 — All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Chapitre 2 — Tous droits réservés.</p>
       </div>
     </footer>
   );

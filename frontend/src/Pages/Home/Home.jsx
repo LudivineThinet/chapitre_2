@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import BookCard from "../../components/BookCard/BookCard";
-
 import { fetchBooks } from "../../services/api";
-
+import treeLogo from "../../assets/Image/tree.png";
 import "./Home.css";
 
 function Home() {
@@ -17,37 +13,37 @@ function Home() {
       const data = await fetchBooks();
       setBooks(data);
     }
-
     loadBooks();
   }, []);
 
   return (
-    <div>
+    <div className="home-page">
 
+      {/* ── Hero ── */}
+      <section className="hero">
+        <img className="hero-bg" src={treeLogo} alt="" aria-hidden="true" />
+        <span className="hero-eyebrow">Librairie d'occasion</span>
+        <h1>Chapitre <em>2</em></h1>
+        <p className="hero-sub">Donnez une seconde vie aux livres d'occasion 📚</p>
+      </section>
 
-      <div className="home-page">
-        {/* Hero */}
-        <section className="hero">
-          <h1>Chapitre 2</h1>
-          <p>Donnez une seconde vie aux livres d’occasion 📚</p>
-        </section>
-
-        {/* Sell promo */}
-        <section className="sell-banner">
+      {/* ── Sell banner ── */}
+      <section className="sell-banner">
+        <div className="sell-banner-content">
           <h2>Revendez vos livres facilement</h2>
-          <p>
-            Estimez votre rachat en quelques secondes et envoyez vos livres.
-          </p>
+          <p>Estimez votre rachat en quelques secondes et envoyez vos livres.</p>
+        </div>
+        <Link to="/sell">
+          <button>Vendre mes livres</button>
+        </Link>
+      </section>
 
-          <Link to="/sell">
-            <button>Vendre mes livres</button>
-          </Link>
-        </section>
-
-        {/* Nouveautés */}
-        <section>
-        <h2>Nouveautés</h2>
-
+      {/* ── Nouveautés ── */}
+      <section className="books-section">
+        <div className="section-header">
+          <h2>Nouveautés</h2>
+          <span className="section-label">Arrivages récents</span>
+        </div>
         <div className="home-books">
           {books.slice(0, 4).map((book) => (
             <BookCard key={book.id} book={book} />
@@ -55,28 +51,31 @@ function Home() {
         </div>
       </section>
 
-
-        {/* Best sellers */}
-        <section>
+      {/* ── Best sellers ── */}
+      <section className="books-section">
+        <div className="section-header">
           <h2>Meilleures ventes</h2>
+          <span className="section-label">Les favoris</span>
+        </div>
+        <div className="home-books">
+          {books.slice(4, 8).map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </div>
+      </section>
 
-          <div className="home-books">
-            {books.slice(4, 8).map((book) => (
-              <BookCard key={book.id} book={book} />
-            ))}
-          </div>
-        </section>
-
-        {/* Box teaser */}
-        <section className="box-teaser">
-          <h2>Bientôt disponible ✨</h2>
+      {/* ── Box teaser ── */}
+      <section className="box-teaser">
+        <div className="box-teaser-dot">✨</div>
+        <div>
+          <span className="box-teaser-tag">Bientôt disponible</span>
+          <h2>Des box surprise trimestrielles</h2>
           <p>
-            Des box de livres surprise, livrées chaque trimestre, selon vos goûts.
+            Des sélections de livres livrées chaque trimestre, choisies selon vos goûts et vos coups de cœur.
           </p>
-        </section>
-      </div>
+        </div>
+      </section>
 
-      
     </div>
   );
 }

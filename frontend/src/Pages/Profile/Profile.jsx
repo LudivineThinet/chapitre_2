@@ -2,7 +2,8 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 
-import { CartContext } from "../../context/CartContext";
+
+import { AuthContext } from "../../context/AuthContext";
 
 //components
 import ProfileOrdersTab from "../../components/ProfileOrdersTab/ProfileOrdersTab";
@@ -13,17 +14,12 @@ import ProfilePayoutTab from "../../components/ProfilePayoutTab/ProfilePayoutTab
 
 function Profile() {
   const navigate = useNavigate();
-  const { setUserEmail } = useContext(CartContext);
-  const email = localStorage.getItem("userEmail");
-  const role = localStorage.getItem("userRole");
+  const { userEmail, userRole, logout } = useContext(AuthContext);
 
   const [activeTab, setActiveTab] = useState("infos");
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userRole");
-    setUserEmail(null);
+    logout();
     navigate("/");
   }
 
@@ -45,12 +41,7 @@ function Profile() {
     });
 
     // logout post supression
-    localStorage.removeItem("token");
-    localStorage.removeItem("userEmail");
-    localStorage.removeItem("userRole");
-    setUserEmail(null);
-
-    // redirection accueil
+    logout();
     navigate("/");
 
   } catch (error) {
@@ -65,36 +56,51 @@ function Profile() {
       {/* HEADER USER */}
       <div className="profile-header">
         <p>
-          Connecté avec : <strong>{email}</strong>
+          Connecté avec : <strong>{userEmail}</strong>
         </p>
-        <span className="role-badge">{role}</span>
+        <span className="role-badge">{userRole}</span>
       </div>
 
       {/* NAV ONGLET */}
       <div className="profile-layout">
   {/* MENU GAUCHE */}
   <div className="profile-sidebar">
-    <button onClick={() => setActiveTab("infos")}>
+    <button
+      className={activeTab === "infos" ? "active" : ""}
+      onClick={() => setActiveTab("infos")}
+    >
       Mes infos
     </button>
 
-    <button onClick={() => setActiveTab("orders")}>
+    <button
+      className={activeTab === "orders" ? "active" : ""}
+      onClick={() => setActiveTab("orders")}
+    >
       Mes commandes
     </button>
 
-    <button onClick={() => setActiveTab("buybacks")}>
+    <button
+      className={activeTab === "buybacks" ? "active" : ""}
+      onClick={() => setActiveTab("buybacks")}
+    >
       Mes ventes
     </button>
 
-    <button onClick={() => setActiveTab("addresses")}>
+    <button
+      className={activeTab === "addresses" ? "active" : ""}
+      onClick={() => setActiveTab("addresses")}
+    >
       Mes adresses
     </button>
 
-    <button onClick={() => setActiveTab("payout")}>
+    <button
+      className={activeTab === "payout" ? "active" : ""}
+      onClick={() => setActiveTab("payout")}
+    >
       Recevoir mes paiements
     </button>
 
-    {role === "admin" && (
+    {userRole === "admin" && (
       <button onClick={() => navigate("/admin")}>
         🔐 Admin
       </button>
@@ -112,17 +118,17 @@ function Profile() {
 </div>
 
       
-
+<div className="profile-actions">
       <button className="logout-btn" onClick={handleLogout}>
         Se déconnecter
       </button>
 
       <button
         className="delete-account-btn"
-        onClick={handleDeleteAccount}
-      >
+        onClick={handleDeleteAccount}>
         Supprimer mon compte
       </button>
+    </div>
     </div>
   );
 }

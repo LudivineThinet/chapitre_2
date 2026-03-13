@@ -2,27 +2,46 @@ import "./OfferSelector.css";
 
 function OfferSelector({ offers, selectedOffer, onSelect }) {
   if (!offers || offers.length === 0) {
-    return <p>No offers available.</p>;
+    return <p>Pas d'offres disponibles.</p>;
   }
 
   return (
-    <div>
-      <h2>Available conditions</h2>
+    <div className="offer-selector">
 
-      {offers.map((offer) => (
-        <label key={offer.id}>
-          <input
-            type="radio"
-            name="offer"
-            value={offer.id}
-            checked={selectedOffer?.id === offer.id}
-            onChange={() => onSelect(offer)}
-          />
+      <h2 className="offer-title">Selectionnez la condition souhaitée</h2>
 
-          {offer.condition} — {offer.sell_price} €
-          (stock: {offer.stock})
-        </label>
-      ))}
+      <div className="offer-list">
+        {offers.map((offer) => (
+          <label
+            key={offer.id}
+            className={`offer-card ${
+              selectedOffer?.id === offer.id ? "selected" : ""
+            }`}
+          >
+            <input
+              type="radio"
+              name="offer"
+              value={offer.id}
+              checked={selectedOffer?.id === offer.id}
+              onChange={() => onSelect(offer)}
+            />
+
+            <div className="offer-condition">
+              {offer.condition}
+            </div>
+
+            <div className="offer-price">
+              {offer.sell_price} €
+            </div>
+
+            <div className="offer-stock">
+              Stock: {offer.stock}
+            </div>
+
+          </label>
+        ))}
+      </div>
+
     </div>
   );
 }

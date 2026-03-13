@@ -2,13 +2,13 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import { loginUser } from "../../services/api";
-import { CartContext } from "../../context/CartContext";
+import { AuthContext } from "../../context/AuthContext";
 
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
-  const { setUserEmail } = useContext(CartContext); 
+  const { login } = useContext(AuthContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,12 +26,7 @@ function Login() {
       const data = await loginUser(email, password);
 
       // Sauvegarde du token JWT
-      localStorage.setItem("token", data.token);
-
-      localStorage.setItem("userEmail", data.user.email);
-      localStorage.setItem("userRole", data.user.role);
-
-      setUserEmail(data.user.email); 
+      login(data.user.email, data.user.role, data.token);
 
       // Redirection après connexion
       navigate("/");

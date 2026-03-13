@@ -1,25 +1,73 @@
 .buybacks-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 2rem;
+  margin-top: 24px;
+
+  background: white;
+  border: 3px solid var(--rose);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.buybacks-table th,
-.buybacks-table td {
-  border: 1px solid #ddd;
-  padding: 0.8rem;
-}
+/* header */
 
 .buybacks-table th {
-  background: #eee;
+  background: #fff9f3;
+  color: var(--vert);
+  text-align: left;
+
+  padding: 12px;
+  font-size: 0.9rem;
 }
 
-button {
-  margin-right: 0.5rem;
-  padding: 0.4rem 0.8rem;
-  cursor: pointer;
+/* cellules */
+
+.buybacks-table td {
+  padding: 12px;
+  border-top: 1px solid var(--rose);
+  font-size: 0.9rem;
 }
+
+/* lignes hover */
+
+.buybacks-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* boutons */
+
+.buybacks-table button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+/* accepter */
+
+.buybacks-table button:first-child {
+  background: #4caf50;
+  color: white;
+}
+
+/* refuser */
+
+.buybacks-table button:last-child {
+  background: #c94c4c;
+  color: white;
+}
+
+/* hover boutons */
+
+.buybacks-table button:hover {
+  opacity: 0.9;
+}
+
+/* message erreur */
 
 .error {
-  color: red;
+  color: #c94c4c;
+  margin-top: 10px;
 }

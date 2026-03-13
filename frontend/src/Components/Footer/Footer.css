@@ -1,70 +1,121 @@
 .footer {
-  background: #111;
+  background: var(--vert);
   color: white;
-  padding: 2rem;
-  margin-top: 3rem;
+  padding: 1.5rem 2rem;
+  margin-top: 1rem;
 }
 
+/* conteneur principal */
+
 .footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 2rem;
+  margin: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* sections */
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
 }
 
 .footer-section h3 {
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.95rem;
 }
 
+/* liens */
+
 .footer-section a {
-  display: block;
-  color: #ccc;
+  color: #f0f0f0;
   text-decoration: none;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
 }
 
 .footer-section a:hover {
-  color: white;
+  color: var(--rose);
 }
 
+/* logo */
+
 .footer-logo {
-  height: 45px;
-  margin-bottom: 0.5rem;
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+  margin-top: 25px;
+  margin-left: 32px;
 }
+
+/* newsletter */
 
 .newsletter-form {
   display: flex;
-  gap: 0.5rem;
+  gap: 6px;
+  margin-top: 6px;
 }
 
 .newsletter-form input {
-  flex: 1;
-  padding: 0.4rem;
-  border-radius: 4px;
+  padding: 6px;
+  border-radius: 6px;
   border: none;
 }
 
 .newsletter-form button {
-  padding: 0.4rem 0.8rem;
+  padding: 6px 10px;
   border: none;
-  background: white;
+  border-radius: 6px;
+  background: var(--terracotta);
+  color: white;
   cursor: pointer;
 }
 
-.footer-bottom {
-  border-top: 1px solid #333;
-  margin-top: 2rem;
-  padding-top: 1rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #aaa;
+.newsletter-form button:hover {
+  opacity: 0.9;
 }
+
+/* réseaux sociaux */
 
 .social-links {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 10px;
+  margin-top: 36px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 48px;
+  height: 48px;
+
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+
+  transition: 0.2s;
+}
+
+.social-links a:hover {
+  background: var(--terracotta);
 }
 
 .social-links img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+}
+
+/* bas du footer */
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.2);
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+
+  text-align: center;
+  font-size: 0.85rem;
+  color: #eee;
 }

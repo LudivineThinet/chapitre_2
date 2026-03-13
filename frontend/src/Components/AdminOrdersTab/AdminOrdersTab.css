@@ -1,19 +1,63 @@
+/* ================= TABLE ================= */
+
 .orders-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 2rem;
+  margin-top: 24px;
+
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.orders-table th,
-.orders-table td {
-  border: 1px solid #ddd;
-  padding: 0.8rem;
-}
+/* header */
 
 .orders-table th {
-  background: #eee;
+  background: #fff9f3;
+  color: var(--vert);
+
+  text-align: left;
+  padding: 12px;
+
+  font-size: 0.9rem;
 }
 
+/* cellules */
+
+.orders-table td {
+  padding: 12px;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+/* hover ligne */
+
+.orders-table tbody tr:hover {
+  background: #fafafa;
+}
+
+/* boutons */
+
+.orders-table button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+
+  background: var(--terracotta);
+  color: white;
+
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.orders-table button:hover {
+  opacity: 0.9;
+}
+
+/* message erreur */
+
 .error {
-  color: red;
+  color: #c94c4c;
+  margin-top: 10px;
 }

@@ -5,6 +5,8 @@ import OfferSelector from "../../components/OfferSelector/OfferSelector";
 import { fetchBookById, fetchBookOffers } from "../../services/api";
 import { CartContext } from "../../context/CartContext";
 
+import "./BookDetails.css";
+
 function BookDetails() {
   const { id } = useParams();
 
@@ -12,15 +14,15 @@ function BookDetails() {
   const [offers, setOffers] = useState([]);
   const [selectedOffer, setSelectedOffer] = useState(null);
   const { addToCart } = useContext(CartContext);
+  const [added, setAdded] = useState(false);
+
 
   useEffect(() => {
     async function loadData() {
       try {
-        // Book info
         const bookData = await fetchBookById(id);
         setBook(bookData);
 
-        // Offers
         const offersData = await fetchBookOffers(id);
         setOffers(offersData);
       } catch (error) {
@@ -32,77 +34,76 @@ function BookDetails() {
   }, [id]);
 
   if (!book) {
-    return <p>Loading book...</p>;
+    return <p>En chargement...</p>;
   }
 
   return (
-    <div>
-      {/* ✅ Cover image */}
-      <img
-        src={book.image_url}
-        alt={book.title}
-        width="200"
-      />
+    <div className="book-detail-page">
 
-      {/* ✅ Title + Author */}
-      <h1>{book.title}</h1>
-      <p>{book.author}</p>
+      <div className="book-detail-container">
 
-      {/* ✅ Format */}
-      <p>
-        Format: <strong>{book.format}</strong>
-      </p>
+        {/* Cover */}
+        <div className="book-detail-image">
+          <img src={book.image_url} alt={book.title} />
+        </div>
 
-      {/* ✅ Genres */}
-      <p>
-        Genres: <strong>{book.genres.join(", ")}</strong>
-      </p>
+        {/* Right side */}
+        <div className="book-detail-info">
 
-      {/* ✅ Summary */}
-      <p>{book.summary}</p>
+          <h1 className="book-title">{book.title}</h1>
 
-      {/* ✅ Reference new price */}
-      <p>
-        Prix neuf : {book.price_new_ref} €
-      </p>
+          <p className="book-author">{book.author}</p>
 
-      {/* ✅ Offers section */}
-{offers.length === 0 ? (
-  <p><strong>No stock available.</strong></p>
-) : (
-  <>
-    {/* Offers selector */}
-    <OfferSelector
-      offers={offers}
-      selectedOffer={selectedOffer}
-      onSelect={setSelectedOffer}
-    />
+          <p className="book-summary">{book.summary}</p>
 
-    {/* Add to cart button */}
-    <button
+          <div className="book-meta">
+            <p><strong>Format:</strong> {book.format}</p>
+            <p><strong>Genres:</strong> {book.genres.join(", ")}</p>
+            <p><strong>Prix neuf:</strong> {book.price_new_ref} €</p>
+          </div>
+
+          {offers.length === 0 ? (
+            <p className="no-stock">Pas de Stock</p>
+          ) : (
+            <>
+              <OfferSelector
+                offers={offers}
+                selectedOffer={selectedOffer}
+                onSelect={setSelectedOffer}
+              />
+
+              <button
+  className={`add-cart-btn ${added ? "added" : ""}`}
   disabled={!selectedOffer}
-  onClick={() =>
+  onClick={() => {
     addToCart({
       id: selectedOffer.id,
       title: book.title,
       author: book.author,
       condition: selectedOffer.condition,
       price: selectedOffer.sell_price,
-    })
-  }
+    });
+
+    setAdded(true);
+
+    setTimeout(() => {
+      setAdded(false);
+    }, 1200);
+  }}
 >
-  Add to cart
+  {added ? "✓ Ajouté!" : "Ajouter au panier"}
 </button>
 
+              {!selectedOffer && (
+                <p className="select-condition">
+                  Selectionner un état pour ajouter au panier.
+                </p>
+              )}
+            </>
+          )}
 
-
-    {/* Small helper message */}
-    {!selectedOffer && (
-      <p>Please select a condition before adding to cart.</p>
-    )}
-  </>
-)}
-
+        </div>
+      </div>
     </div>
   );
 }

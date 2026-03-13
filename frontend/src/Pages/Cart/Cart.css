@@ -1,0 +1,108 @@
+.cart-page {
+  max-width: 900px;
+  margin: auto;
+  padding: 3rem 2rem;
+}
+
+/* titre */
+
+.cart-page h1 {
+  margin-bottom: 2rem;
+  color: var(--vert);
+}
+
+/* liste */
+
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* carte produit */
+
+.cart-item {
+  border: 1px solid var(--rose);
+  border-radius: 12px;
+  padding: 1.2rem;
+
+  background: #fff9f3;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* infos livre */
+
+.cart-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* prix */
+
+.cart-price {
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+/* bouton supprimer */
+
+.remove-btn {
+  border: none;
+  background: transparent;
+  color: #c94c4c;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.remove-btn:hover {
+  text-decoration: underline;
+}
+
+/* section total */
+
+.cart-summary {
+  margin-top: 2rem;
+  padding: 1.5rem;
+
+  border: 1px solid var(--rose);
+  border-radius: 12px;
+
+  background: #fff9f3;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* total */
+
+.cart-total {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* bouton checkout */
+
+.checkout-btn {
+  padding: 0.7rem 1.4rem;
+
+  border: none;
+  border-radius: 8px;
+
+  background: var(--terracotta);
+  color: white;
+
+  cursor: pointer;
+  font-size: 0.95rem;
+
+  transition: all 0.2s ease;
+}
+
+.checkout-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+}

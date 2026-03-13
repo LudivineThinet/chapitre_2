@@ -6,7 +6,9 @@ function AdminStockTab() {
   const [error, setError] = useState("");
   const [books, setBooks] = useState([]);
 
-  // Formulaire ajout exemplaire
+  // 🔥 MODALE AJOUT
+  const [showAddModal, setShowAddModal] = useState(false);
+
   const [newItem, setNewItem] = useState({
     book_id: "",
     condition: "good",
@@ -16,6 +18,7 @@ function AdminStockTab() {
   // ============================
   // Charger le stock
   // ============================
+
   async function loadStock() {
     try {
       const token = localStorage.getItem("token");
@@ -59,8 +62,9 @@ function AdminStockTab() {
   }
 
   // ============================
-  // Modifier stock (+1 / -1)
+  // Modifier stock
   // ============================
+
   async function handleUpdateStock(id, newStock) {
     try {
       const token = localStorage.getItem("token");
@@ -83,6 +87,7 @@ function AdminStockTab() {
   // ============================
   // Ajouter un exemplaire
   // ============================
+
   async function handleAddItem(e) {
     e.preventDefault();
 
@@ -109,6 +114,7 @@ function AdminStockTab() {
 
       alert("Exemplaire ajouté !");
       loadStock();
+      setShowAddModal(false);
 
       setNewItem({
         book_id: "",
@@ -120,9 +126,6 @@ function AdminStockTab() {
     }
   }
 
-  // ============================
-  // On load
-  // ============================
   useEffect(() => {
     loadStock();
     loadBooks();
@@ -130,11 +133,21 @@ function AdminStockTab() {
 
   return (
     <div>
-      <h1>Admin — Stock</h1>
+      <div className="admin-header">
+        <h1>Admin — Stock</h1>
+
+        <h2
+          className="add-book-trigger"
+          onClick={() => setShowAddModal(true)}
+        >
+          + Ajouter un exemplaire
+        </h2>
+      </div>
 
       {error && <p className="error">{error}</p>}
 
       {/* ================= TABLEAU ================= */}
+
       <table>
         <thead>
           <tr>
@@ -177,53 +190,85 @@ function AdminStockTab() {
         </tbody>
       </table>
 
-      {/* ================= FORMULAIRE AJOUT ================= */}
-      <h2>Ajouter un exemplaire</h2>
+      {/* ================= MODALE AJOUT ================= */}
 
-      <form onSubmit={handleAddItem} className="admin-form">
-        <label>Livre</label>
-
-        <select
-          value={newItem.book_id}
-          onChange={(e) =>
-            setNewItem({ ...newItem, book_id: Number(e.target.value) })
-          }
-          required
+      {showAddModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowAddModal(false)}
         >
-          <option value="">-- Sélectionner un livre --</option>
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2>Ajouter un exemplaire</h2>
 
-          {books.map((b) => (
-            <option key={b.id} value={b.id}>
-              {b.title} — {b.author} (ISBN : {b.isbn})
-            </option>
-          ))}
-        </select>
+            <form onSubmit={handleAddItem} className="admin-form">
 
-        <label>État</label>
-        <select
-          value={newItem.condition}
-          onChange={(e) =>
-            setNewItem({ ...newItem, condition: e.target.value })
-          }
-        >
-          <option value="like_new">Comme neuf</option>
-          <option value="very_good">Très bon</option>
-          <option value="good">Bon</option>
-          <option value="acceptable">Acceptable</option>
-        </select>
+              <label>Livre</label>
 
-        <input
-          type="number"
-          min="1"
-          value={newItem.stock}
-          onChange={(e) =>
-            setNewItem({ ...newItem, stock: Number(e.target.value) })
-          }
-          required
-        />
+              <select
+                value={newItem.book_id}
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    book_id: Number(e.target.value),
+                  })
+                }
+                required
+              >
+                <option value="">-- Sélectionner un livre --</option>
 
-        <button type="submit">Ajouter</button>
-      </form>
+                {books.map((b) => (
+                  <option key={b.id} value={b.id}>
+                    {b.title} — {b.author} (ISBN : {b.isbn})
+                  </option>
+                ))}
+              </select>
+
+              <label>État</label>
+
+              <select
+                value={newItem.condition}
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    condition: e.target.value,
+                  })
+                }
+              >
+                <option value="like_new">Comme neuf</option>
+                <option value="very_good">Très bon</option>
+                <option value="good">Bon</option>
+                <option value="acceptable">Acceptable</option>
+              </select>
+
+              <input
+                type="number"
+                min="1"
+                value={newItem.stock}
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    stock: Number(e.target.value),
+                  })
+                }
+                required
+              />
+
+              <button type="submit">Ajouter</button>
+
+              <button
+                type="button"
+                onClick={() => setShowAddModal(false)}
+              >
+                Annuler
+              </button>
+
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

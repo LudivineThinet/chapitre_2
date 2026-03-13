@@ -1,0 +1,75 @@
+.offer-selector {
+  margin-top: 2rem;
+}
+
+.offer-title {
+  margin-bottom: 1rem;
+  color: var(--vert);
+}
+
+/* grid des offres */
+
+.offer-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+/* carte */
+
+.offer-card {
+  border: 1px solid var(--rose);
+  border-radius: 10px;
+  padding: 0.9rem;
+
+  background: #fff9f3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* cacher radio */
+
+.offer-card input {
+  display: none;
+}
+
+/* hover */
+
+.offer-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* selection */
+
+.offer-card.selected {
+  border: 2px solid var(--terracotta);
+}
+
+/* condition */
+
+.offer-condition {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* prix */
+
+.offer-price {
+  font-size: 1.1rem;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+/* stock */
+
+.offer-stock {
+  font-size: 0.85rem;
+  color: #666;
+}
