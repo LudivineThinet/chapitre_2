@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ProfileAddressesTab.css";
-import trash from "../../assets/icon/trash.svg";
+import trash from "../../assets/Icon/trash.svg";
 
 function ProfileAddressesTab() {
   const [addresses, setAddresses] = useState([]);
