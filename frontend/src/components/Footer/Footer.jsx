@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import "./Footer.css";
 
 import logo from "../../assets/Image/logo.png";
-import instagramIcon from "../../assets/icon/instagram.svg";
-import tiktokIcon from "../../assets/icon/tiktok.svg";
-import facebookIcon from "../../assets/icon/facebook.svg";
+import instagramIcon from "../../assets/Icon/instagram.svg";
+import tiktokIcon from "../../assets/Icon/tiktok.svg";
+import facebookIcon from "../../assets/Icon/facebook.svg";
 
 
 function Footer() {
