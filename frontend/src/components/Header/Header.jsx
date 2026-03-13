@@ -4,8 +4,8 @@ import { useState } from "react";
 import "./Header.css";
 import logo from "../../assets/Image/logo.png";
 
-import cartIcon from "../../assets/icon/cart.svg";
-import profileIcon from "../../assets/icon/profile.svg";
+import cartIcon from "../../assets/Icon/cart.svg";
+import profileIcon from "../../assets/Icon/profile.svg";
 
 function Header() {
   const navigate = useNavigate();
