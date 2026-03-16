@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+import {
+  fetchAdminStock,
+  fetchAdminBooks,
+  updateAdminStockItem,
+  createAdminStockItem
+} from "../services/api";
 import "./AdminStockTab.css";
 
 function AdminStockTab() {
@@ -6,7 +12,7 @@ function AdminStockTab() {
   const [error, setError] = useState("");
   const [books, setBooks] = useState([]);
 
-  // 🔥 MODALE AJOUT
+  // MODALE AJOUT
   const [showAddModal, setShowAddModal] = useState(false);
 
   const [newItem, setNewItem] = useState({
@@ -15,116 +21,55 @@ function AdminStockTab() {
     stock: 1,
   });
 
-  // ============================
   // Charger le stock
-  // ============================
-
   async function loadStock() {
-    try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        "http://localhost:3000/admin/book-items",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Erreur chargement stock");
-      }
-
-      setItems(data);
-    } catch (err) {
-      setError(err.message);
-    }
+  try {
+    const data = await fetchAdminStock();
+    setItems(data);
+  } catch (err) {
+    setError(err.message);
   }
+}
 
-  async function loadBooks() {
-    try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch("http://localhost:3000/admin/books", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-      setBooks(data);
-    } catch (err) {
-      console.error("Erreur chargement livres");
-    }
+ async function loadBooks() {
+  try {
+    const data = await fetchAdminBooks();
+    setBooks(data);
+  } catch (err) {
+    console.error("Erreur chargement livres");
   }
+}
 
-  // ============================
   // Modifier stock
-  // ============================
-
   async function handleUpdateStock(id, newStock) {
-    try {
-      const token = localStorage.getItem("token");
-
-      await fetch(`http://localhost:3000/admin/book-items/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ stock: newStock }),
-      });
-
-      loadStock();
-    } catch (err) {
-      console.error(err);
-    }
+  try {
+    await updateAdminStockItem(id, newStock);
+    loadStock();
+  } catch (err) {
+    console.error(err);
   }
+}
 
-  // ============================
   // Ajouter un exemplaire
-  // ============================
-
   async function handleAddItem(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const token = localStorage.getItem("token");
+  try {
+    await createAdminStockItem(newItem);
 
-      const response = await fetch(
-        "http://localhost:3000/admin/book-items",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newItem),
-        }
-      );
+    alert("Exemplaire ajouté !");
+    loadStock();
+    setShowAddModal(false);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Erreur ajout exemplaire");
-      }
-
-      alert("Exemplaire ajouté !");
-      loadStock();
-      setShowAddModal(false);
-
-      setNewItem({
-        book_id: "",
-        condition: "good",
-        stock: 1,
-      });
-    } catch (err) {
-      alert(err.message);
-    }
+    setNewItem({
+      book_id: "",
+      condition: "good",
+      stock: 1,
+    });
+  } catch (err) {
+    alert(err.message);
   }
+}
 
   useEffect(() => {
     loadStock();

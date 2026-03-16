@@ -1,5 +1,10 @@
 import { useEffect, useState } from "react";
 import "./ProfileAddressesTab.css";
+import {
+  fetchUserAddresses,
+  createUserAddress,
+  deleteUserAddress
+} from "../services/api";
 import trash from "../../assets/Icon/trash.svg";
 
 function ProfileAddressesTab() {
@@ -14,25 +19,17 @@ function ProfileAddressesTab() {
     country: "",
   });
 
-  const token = localStorage.getItem("token");
-
   // 🔹 charger les adresses
-  async function fetchAddresses() {
-    try {
-      const res = await fetch("http://localhost:3000/addresses/me", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-      setAddresses(data);
-    } catch (err) {
-      console.error("Erreur chargement adresses :", err);
-    } finally {
-      setLoading(false);
-    }
+ async function fetchAddresses() {
+  try {
+    const data = await fetchUserAddresses();
+    setAddresses(data);
+  } catch (err) {
+    console.error("Erreur chargement adresses :", err);
+  } finally {
+    setLoading(false);
   }
+}
 
   useEffect(() => {
     fetchAddresses();
@@ -45,40 +42,24 @@ function ProfileAddressesTab() {
 
   // 🔹 ajout adresse
   async function handleSubmit(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const res = await fetch("http://localhost:3000/addresses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(form),
-      });
+  try {
+    await createUserAddress(form);
 
-      const data = await res.json();
+    setForm({
+      full_name: "",
+      street: "",
+      city: "",
+      postal_code: "",
+      country: "",
+    });
 
-      if (!res.ok) {
-        console.error("Erreur création adresse :", data);
-        return;
-      }
-
-      // reset form
-      setForm({
-        full_name: "",
-        street: "",
-        city: "",
-        postal_code: "",
-        country: "",
-      });
-
-      // refresh liste
-      fetchAddresses();
-    } catch (err) {
-      console.error("Erreur serveur :", err);
-    }
+    fetchAddresses();
+  } catch (err) {
+    console.error("Erreur serveur :", err);
   }
+}
 
   async function handleDeleteAddress(addressId) {
   const confirmDelete = window.confirm(
@@ -87,23 +68,8 @@ function ProfileAddressesTab() {
   if (!confirmDelete) return;
 
   try {
-    const res = await fetch(
-      `http://localhost:3000/addresses/${addressId}`,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await deleteUserAddress(addressId);
 
-    if (!res.ok) {
-      const data = await res.json();
-      console.error("Erreur suppression :", data);
-      return;
-    }
-
-    // 🔄 refresh liste
     fetchAddresses();
   } catch (err) {
     console.error("Erreur serveur suppression :", err);

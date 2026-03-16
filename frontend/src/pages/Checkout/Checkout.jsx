@@ -1,4 +1,9 @@
 import { useContext, useState, useEffect } from "react";
+import {
+  fetchUserAddresses,
+  createUserAddress,
+  createCheckoutSession
+} from "../../services/api";
 import { CartContext } from "../../context/CartContext";
 
 import "./Checkout.css";
@@ -22,8 +27,6 @@ function Checkout() {
     country: "",
   });
 
-  const token = localStorage.getItem("token");
-
   // 🔹 Total
   const total = cartItems.reduce((sum, item) => {
     return sum + Number(item.price) * item.quantity;
@@ -32,26 +35,19 @@ function Checkout() {
   // 🔹 Charger les adresses
   useEffect(() => {
     async function fetchAddresses() {
-      try {
-        const res = await fetch("http://localhost:3000/addresses/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  try {
+    const data = await fetchUserAddresses();
+    setAddresses(data);
 
-        const data = await res.json();
-        setAddresses(data);
-
-        // sélection auto de la première
-        if (data.length > 0) {
-          setSelectedAddressId(data[0].id);
-        }
-      } catch (err) {
-        console.error("Erreur chargement adresses :", err);
-      } finally {
-        setLoadingAddresses(false);
-      }
+    if (data.length > 0) {
+      setSelectedAddressId(data[0].id);
     }
+  } catch (err) {
+    console.error("Erreur chargement adresses :", err);
+  } finally {
+    setLoadingAddresses(false);
+  }
+}
 
     fetchAddresses();
   }, [token]);
@@ -71,16 +67,7 @@ function Checkout() {
     // ===== CAS NOUVELLE ADRESSE =====
     if (addressMode === "new") {
       try {
-        const res = await fetch("http://localhost:3000/addresses", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newAddress),
-        });
-
-        const data = await res.json();
+        const data = await createUserAddress(newAddress);
 
         if (!res.ok) {
           console.error("Erreur création adresse :", data);
@@ -105,21 +92,7 @@ function Checkout() {
     sessionStorage.setItem("selectedAddressId", addressIdToUse);
 
     // ===== STRIPE =====
-    const response = await fetch(
-      "http://localhost:3000/payments/create-checkout-session",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          items: cartItems,
-        }),
-      }
-    );
-
-    const data = await response.json();
+    const data = await createCheckoutSession(cartItems);
 
     if (!data.url) {
       console.error("Erreur Stripe :", data);

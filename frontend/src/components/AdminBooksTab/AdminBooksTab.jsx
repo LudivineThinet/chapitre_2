@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+import {
+  fetchAdminBooks,
+  fetchGenres,
+  createAdminBook,
+  updateAdminBook
+} from "../services/api";
 import "./AdminBooksTab.css";
 
 function AdminBooksTab() {
@@ -42,21 +48,8 @@ function AdminBooksTab() {
   // ============================
   async function loadBooks() {
     try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch("http://localhost:3000/admin/books", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Erreur chargement livres");
-      }
-
-      setBooks(data);
+     const data = await fetchAdminBooks();
+    setBooks(data);
     } catch (err) {
       setError(err.message);
     }
@@ -67,8 +60,7 @@ function AdminBooksTab() {
   // ============================
   async function loadGenres() {
     try {
-      const response = await fetch("http://localhost:3000/genres");
-      const data = await response.json();
+      const data = await fetchGenres();
       setGenresList(data);
     } catch (err) {
       console.error("Erreur chargement genres");
@@ -82,40 +74,25 @@ function AdminBooksTab() {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
+  await createAdminBook(form);
 
-      const response = await fetch("http://localhost:3000/admin/books", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(form),
-      });
+  alert("Livre ajouté !");
+  loadBooks();
+  setShowAddModal(false);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
-
-      alert("Livre ajouté !");
-      loadBooks();
-      setShowAddModal(false);
-
-      setForm({
-        isbn: "",
-        title: "",
-        author: "",
-        price_new_ref: "",
-        summary: "",
-        image_url: "",
-        format: "",
-        genres: [],
-      });
-    } catch (err) {
-      alert(err.message);
-    }
+  setForm({
+    isbn: "",
+    title: "",
+    author: "",
+    price_new_ref: "",
+    summary: "",
+    image_url: "",
+    format: "",
+    genres: [],
+  });
+} catch (err) {
+  alert(err.message);
+}
   }
 
   // ============================
@@ -125,32 +102,14 @@ function AdminBooksTab() {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
+  await updateAdminBook(editingBook.id, editForm);
 
-      const response = await fetch(
-        `http://localhost:3000/admin/books/${editingBook.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(editForm),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
-
-      alert("Livre modifié avec succès !");
-      setEditingBook(null);
-      loadBooks();
-    } catch (err) {
-      alert(err.message);
-    }
+  alert("Livre modifié avec succès !");
+  setEditingBook(null);
+  loadBooks();
+} catch (err) {
+  alert(err.message);
+}
   }
 
   // ============================

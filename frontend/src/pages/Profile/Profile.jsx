@@ -4,6 +4,7 @@ import "./Profile.css";
 
 
 import { AuthContext } from "../../context/AuthContext";
+import { deleteUserAccount } from "../../services/api";
 
 //components
 import ProfileOrdersTab from "../../components/ProfileOrdersTab/ProfileOrdersTab";
@@ -31,19 +32,11 @@ function Profile() {
   if (!confirmDelete) return;
 
   try {
-    const token = localStorage.getItem("token");
+    await deleteUserAccount();
 
-    await fetch("http://localhost:3000/users/me", {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    // logout post supression
+    // logout post suppression
     logout();
     navigate("/");
-
   } catch (error) {
     console.error(error);
   }
