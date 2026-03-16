@@ -1,5 +1,6 @@
 import { useEffect, useContext, useState, useRef } from "react";
 import { Link } from "react-router-dom";
+import { createOrder } from "../../services/api";
 import "./Success.css";
 
 import { CartContext } from "../../context/CartContext";
@@ -40,22 +41,7 @@ function Success() {
       }));
 
       try {
-        const response = await fetch("http://localhost:3000/orders", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({ items, address_id: Number(storedAddressId) }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          console.error("Erreur commande :", data);
-          setStatus("error");
-          return;
-        }
+        const data = await createOrder(items, Number(storedAddressId));
 
         // stocke l'id de commande
         setOrderId(data.order.id);

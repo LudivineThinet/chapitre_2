@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchUserOrders } from "../services/api";
 import "./ProfileOrdersTab.css";
 
 function ProfileOrdersTab() {
@@ -9,25 +10,19 @@ function ProfileOrdersTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchOrders() {
-      try {
-        const res = await fetch("http://localhost:3000/orders/me", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-
-        const data = await res.json();
-        setOrders(data);
-      } catch (error) {
-        console.error("Erreur chargement commandes :", error);
-      } finally {
-        setLoading(false);
-      }
+  async function fetchOrders() {
+    try {
+      const data = await fetchUserOrders();
+      setOrders(data);
+    } catch (error) {
+      console.error("Erreur chargement commandes :", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    fetchOrders();
-  }, []);
+  fetchOrders();
+}, []);
 
   // affichage pendant chargement
   if (loading) {

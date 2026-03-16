@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  fetchUserProfile,
+  updateUserProfile
+} from "../services/api";
 import "./ProfileInfosTab.css";
 
 function ProfileInfosTab() {
@@ -11,34 +15,27 @@ function ProfileInfosTab() {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const token = localStorage.getItem("token");
-
-  // 🔹 Chargement des infos user
+  //Chargement des infos user
   useEffect(() => {
     async function fetchUser() {
-      try {
-        const res = await fetch("http://localhost:3000/users/me", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  try {
+    const data = await fetchUserProfile();
 
-        const data = await res.json();
-        setUser(data);
+    setUser(data);
 
-        setForm({
-          first_name: data.first_name || "",
-          last_name: data.last_name || "",
-          birth_date: data.birth_date
-            ? data.birth_date.slice(0, 10)
-            : "",
-        });
-      } catch (err) {
-        console.error("Erreur chargement profil :", err);
-      } finally {
-        setLoading(false);
-      }
-    }
+    setForm({
+      first_name: data.first_name || "",
+      last_name: data.last_name || "",
+      birth_date: data.birth_date
+        ? data.birth_date.slice(0, 10)
+        : "",
+    });
+  } catch (err) {
+    console.error("Erreur chargement profil :", err);
+  } finally {
+    setLoading(false);
+  }
+}
 
     fetchUser();
   }, [token]);
@@ -51,31 +48,15 @@ function ProfileInfosTab() {
   // 🔹 sauvegarde
   async function handleSave() {
   try {
-    const res = await fetch("http://localhost:3000/users/me", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(form),
-    });
+    const data = await updateUserProfile(form);
 
-    const data = await res.json();
-
-    // 🔴 très important
-    if (!res.ok) {
-      console.error("Erreur update :", data);
-      return;
-    }
-
-    // ✅ mise à jour locale
+    //mise à jour locale
     setUser(data);
     setEditing(false);
   } catch (err) {
     console.error("Erreur update profil :", err);
   }
 }
-
   if (loading) return <p>Chargement...</p>;
   if (!user) return <p>Erreur de chargement.</p>;
 

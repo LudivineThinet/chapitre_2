@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  fetchAdminBuybacks,
+  updateAdminBuybackStatus
+} from "../services/api";
 import "./AdminBuybacksTab.css";
 
 function AdminBuybacksTab() {
@@ -7,49 +11,23 @@ function AdminBuybacksTab() {
 
   // Charger toutes les demandes
   async function loadBuybacks() {
-    try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        "http://localhost:3000/admin/buybacks",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Erreur chargement");
-      }
-
-      setBuybacks(data);
-    } catch (err) {
-      setError(err.message);
-    }
+  try {
+    const data = await fetchAdminBuybacks();
+    setBuybacks(data);
+  } catch (err) {
+    setError(err.message);
   }
+}
 
   // Valider ou refuser
   async function handleValidate(id, status) {
-    try {
-      const token = localStorage.getItem("token");
-
-      await fetch(`http://localhost:3000/admin/buybacks/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status }),
-      });
-
-      loadBuybacks();
-    } catch (err) {
-      console.error(err);
-    }
+  try {
+    await updateAdminBuybackStatus(id, status);
+    loadBuybacks();
+  } catch (err) {
+    console.error(err);
   }
+}
 
   useEffect(() => {
     loadBuybacks();

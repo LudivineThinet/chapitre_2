@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchUserBuybacks } from "../services/api";
 import "./ProfileBuybacksTab.css";
 
 function ProfileBuybacksTab() {
@@ -8,13 +9,7 @@ function ProfileBuybacksTab() {
   useEffect(() => {
     async function fetchBuybacks() {
       try {
-        const res = await fetch("http://localhost:3000/buybacks/me", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-
-        const data = await res.json();
+        const data = await fetchUserBuybacks();
         setBuybacks(data);
       } catch (error) {
         console.error("Erreur chargement ventes :", error);

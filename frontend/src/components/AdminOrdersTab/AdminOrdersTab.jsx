@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  fetchAdminOrders,
+  updateAdminOrderStatus
+} from "../services/api";
 import "./AdminOrdersTab.css";
 
 function AdminOrdersTab() {
@@ -6,45 +10,17 @@ function AdminOrdersTab() {
   const [error, setError] = useState("");
 
   async function loadOrders() {
-    try {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch(
-        "http://localhost:3000/admin/orders",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Erreur chargement commandes");
-      }
-
-      setOrders(data);
-    } catch (err) {
-      setError(err.message);
-    }
+  try {
+    const data = await fetchAdminOrders();
+    setOrders(data);
+  } catch (err) {
+    setError(err.message);
   }
+}
 
   async function updateStatus(orderId, newStatus) {
   try {
-    const token = localStorage.getItem("token");
-
-    await fetch(
-      `http://localhost:3000/admin/orders/${orderId}/status`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ status: newStatus }),
-      }
-    );
+    await updateAdminOrderStatus(orderId, newStatus);
 
     // recharge les commandes
     loadOrders();

@@ -1,4 +1,8 @@
 import { useEffect, useState } from "react";
+import {
+  fetchUserPayout,
+  updateUserPayout
+} from "../services/api";
 import "./ProfilePayoutTab.css";
 
 function maskIban(iban) {
@@ -16,36 +20,26 @@ function ProfilePayoutTab() {
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const token = localStorage.getItem("token");
-
   // 🔹 charger IBAN
   useEffect(() => {
     async function fetchPayout() {
-      try {
-        const res = await fetch(
-          "http://localhost:3000/payout-infos/me",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+  try {
+    const data = await fetchUserPayout();
 
-        const data = await res.json();
-        setPayout(data);
+    setPayout(data);
 
-        if (data) {
-          setForm({
-            iban: data.iban || "",
-            account_holder: data.account_holder || "",
-          });
-        }
-      } catch (err) {
-        console.error("Erreur chargement payout :", err);
-      } finally {
-        setLoading(false);
-      }
+    if (data) {
+      setForm({
+        iban: data.iban || "",
+        account_holder: data.account_holder || "",
+      });
     }
+  } catch (err) {
+    console.error("Erreur chargement payout :", err);
+  } finally {
+    setLoading(false);
+  }
+}
 
     fetchPayout();
   }, [token]);
@@ -55,32 +49,15 @@ function ProfilePayoutTab() {
   }
 
   async function handleSave() {
-    try {
-      const res = await fetch(
-        "http://localhost:3000/payout-infos/me",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(form),
-        }
-      );
+  try {
+    const data = await updateUserPayout(form);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        console.error("Erreur payout :", data);
-        return;
-      }
-
-      setPayout(data);
-      setEditing(false);
-    } catch (err) {
-      console.error("Erreur update payout :", err);
-    }
+    setPayout(data);
+    setEditing(false);
+  } catch (err) {
+    console.error("Erreur update payout :", err);
   }
+}
 
   if (loading) return <p>Chargement...</p>;
 
