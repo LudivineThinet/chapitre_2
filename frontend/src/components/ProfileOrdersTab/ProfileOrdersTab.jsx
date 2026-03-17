@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { fetchUserOrders } from "../../services/api";
 import "./ProfileOrdersTab.css";
 
+const statusTranslations = {
+  paid: "Payé",
+  shipped: "Expédié",
+  delivered: "Livré"
+};
+
 function ProfileOrdersTab() {
   // stocke les commandes
   const [orders, setOrders] = useState([]);
@@ -40,7 +46,7 @@ function ProfileOrdersTab() {
         {orders.map((order) => (
           <div key={order.id} className="order-card">
             <p>
-              <strong>Commande :</strong> #{order.id}
+              <strong>N° de commande :</strong> #{order.id}
             </p>
 
             <p>
@@ -49,13 +55,13 @@ function ProfileOrdersTab() {
             </p>
 
             <p>
-              <strong>Total :</strong> {order.total} €
+              <strong>Montant total :</strong> {order.total} €
             </p>
 
             <p>
               <strong>Statut :</strong>{" "}
               <span className="order-status">
-                {order.status || "—"}
+                {statusTranslations[order.status] || order.status || "—"}
               </span>
             </p>
           </div>

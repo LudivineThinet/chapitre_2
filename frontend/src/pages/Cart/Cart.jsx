@@ -4,6 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import "./Cart.css";
 
+const conditionTranslations = {
+  like_new: "Comme neuf",
+  very_good: "Très bon",
+  good: "Bon",
+  acceptable: "Acceptable"
+};
+
 function Cart() {
   const { cartItems, removeFromCart } = useContext(CartContext);
   const navigate = useNavigate();
@@ -26,7 +33,7 @@ function Cart() {
           <li key={item.id} className="cart-item">
             <div className="cart-info">
               <strong>{item.title}</strong>
-              <span>{item.condition}</span>
+              <span>État : {conditionTranslations[item.condition] || item.condition}</span>
               <span>Quantité : {item.quantity}</span>
               <span className="cart-price">{item.price} €</span>
             </div>

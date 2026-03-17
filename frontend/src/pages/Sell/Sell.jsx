@@ -1,22 +1,25 @@
 import { useState } from "react";
-import { estimateBuyback, createBuyback } from "../../services/api";
+import { estimateBuyback, createBuyback, fetchBooks } from "../../services/api";
 
 import "./Sell.css";
+
+const conditionTranslations = {
+  like_new: "Comme neuf",
+  very_good: "Très bon",
+  good: "Bon",
+  acceptable: "Acceptable"
+};
 
 function Sell() {
   const [isbn, setIsbn] = useState("");
   const [condition, setCondition] = useState("good");
   const [success, setSuccess] = useState(false);
-
-
-  // Liste des livres ajoutés au recap
   const [recapItems, setRecapItems] = useState([]);
-
   const [showModal, setShowModal] = useState(false);
-const [loading, setLoading] = useState(false);
-
-
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [books, setBooks] = useState([]);
+  const [showBooks, setShowBooks] = useState(false);
 
   async function handleAddBook(e) {
     e.preventDefault();
@@ -72,13 +75,26 @@ async function handleConfirmSell() {
   }
 }
 
+async function handleShowBooks() {
+  if (showBooks) {
+    setShowBooks(false);
+    return;
+  }
 
+  try {
+    const data = await fetchBooks();
+    setBooks(data);
+    setShowBooks(true);
+  } catch (err) {
+    console.error(err);
+  }
+}
 
   return (
     <div className="sell-layout">
       {/* Formulaire */}
       <div className="sell-form-box">
-        <h1>Revendre vos livres</h1>
+        <h1>Revendez vos livres</h1>
 
         <form onSubmit={handleAddBook} className="sell-form">
           <label>ISBN</label>
@@ -89,6 +105,36 @@ async function handleConfirmSell() {
             placeholder="Entrez l'ISBN"
             required
           />
+          <p className="sell-note">
+            Pour cette version MVP, seuls les livres présents dans notre catalogue peuvent être revendus.
+          </p>
+          {showBooks && (
+            <div className="catalog-list">
+              <h3>Livres disponibles</h3>
+
+              {books.map((book) => (
+  <div
+    key={book.id}
+    className="catalog-item"
+    onClick={() => setIsbn(book.isbn)}
+  >
+    <strong>{book.title}</strong>
+    <span>{book.author} · ISBN : {book.isbn}</span>
+  </div>
+))}
+
+              
+            </div>
+          )}
+
+
+          <button
+  type="button"
+  className="catalog-btn"
+  onClick={handleShowBooks}
+>
+  {showBooks ? "Masquer la liste" : "Voir les livres acceptés"}
+</button>
 
           <label>État du livre</label>
           <select
@@ -120,7 +166,7 @@ async function handleConfirmSell() {
   <li key={index}>
     <strong>{item.title}</strong> — {item.author}
     <br />
-    État : {item.condition} <br />
+    État : {conditionTranslations[item.condition] || item.condition} <br />
     Prix estimé : {item.buy_price} € <br />
 
     {/* Bouton retirer */}

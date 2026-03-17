@@ -7,6 +7,13 @@ import {
 } from "../../services/api";
 import "./AdminStockTab.css";
 
+const conditionTranslations = {
+  like_new: "Comme neuf",
+  very_good: "Très bon",
+  good: "Bon",
+  acceptable: "Acceptable"
+};
+
 function AdminStockTab() {
   const [items, setItems] = useState([]);
   const [error, setError] = useState("");
@@ -111,7 +118,7 @@ function AdminStockTab() {
                 {it.title} — {it.author}
               </td>
 
-              <td>{it.condition}</td>
+              <td>{conditionTranslations[it.condition] || it.condition}</td>
               <td>{it.sell_price} €</td>
               <td>{it.stock}</td>
 

@@ -5,6 +5,12 @@ import {
 } from "../../services/api";
 import "./AdminOrdersTab.css";
 
+const statusTranslations = {
+  paid: "Payé",
+  shipped: "Expédié",
+  delivered: "Livré"
+};
+
 function AdminOrdersTab() {
   const [orders, setOrders] = useState([]);
   const [error, setError] = useState("");
@@ -47,7 +53,7 @@ function AdminOrdersTab() {
               <th>ID</th>
               <th>Utilisateur</th>
               <th>Total</th>
-              <th>Status</th>
+              <th>Statut</th>
               <th>Date</th>
               <th>Actions</th>
             </tr>
@@ -59,7 +65,7 @@ function AdminOrdersTab() {
       <td>#{order.id}</td>
       <td>{order.user_email}</td>
       <td>{order.total} €</td>
-      <td>{order.status}</td>
+      <td>{statusTranslations[order.status] || order.status}</td>
       <td>
         {new Date(order.created_at).toLocaleDateString()}
       </td>

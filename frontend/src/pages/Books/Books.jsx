@@ -48,7 +48,7 @@ function Books() {
     return true;
   });
 
-  if (loading) return <p>Loading catalogue...</p>;
+  if (loading) return <p>Chargement en cours...</p>;
 
   
   return (
@@ -58,21 +58,22 @@ function Books() {
     ? `${genre}`
     : search
     ? `Results for "${search}"`
-    : "All books"}
+    : "Tous les livres"}
 </h1>
 {(genre || search) && (
   <button onClick={() => navigate("/books")}>
-    Clear filters
+    Afficher tous les livres
   </button>
 )}
 
 
+
       {/* Small filter info */}
-      {genre && <p>Category: {genre}</p>}
-      {search && <p>Search: {search}</p>}
+      {genre && <p>Categorie: {genre}</p>}
+      {search && <p>Recherche: {search}</p>}
 
       {filteredBooks.length === 0 ? (
-        <p>No books match your filter.</p>
+        <p>Aucun livre ne correspond à vos critères.</p>
       ) : (
         <div className="books-grid">
           {filteredBooks.map((book) => (

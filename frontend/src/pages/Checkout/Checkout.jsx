@@ -8,6 +8,13 @@ import { CartContext } from "../../context/CartContext";
 
 import "./Checkout.css";
 
+const conditionTranslations = {
+  like_new: "Comme neuf",
+  very_good: "Très bon",
+  good: "Bon",
+  acceptable: "Acceptable"
+};
+
 function Checkout() {
   const { cartItems } = useContext(CartContext);
 
@@ -213,7 +220,7 @@ function Checkout() {
         <ul>
           {cartItems.map((item) => (
             <li key={item.id}>
-              {item.title} ({item.condition}) x {item.quantity} — {item.price} €
+              {item.title} ({conditionTranslations[item.condition] || item.condition}) x {item.quantity} — {item.price} €
             </li>
           ))}
         </ul>

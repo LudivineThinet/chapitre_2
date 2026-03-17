@@ -40,7 +40,7 @@ function Register() {
         <label>Email</label>
         <input
           type="email"
-          placeholder="ex: ludivine@mail.com"
+          placeholder="Votre adresse email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
