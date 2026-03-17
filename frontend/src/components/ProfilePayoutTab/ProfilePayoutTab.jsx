@@ -42,7 +42,7 @@ function ProfilePayoutTab() {
 }
 
     fetchPayout();
-  }, [token]);
+  }, []);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
