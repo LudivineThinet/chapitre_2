@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserOrders } from "../services/api";
+import { fetchUserOrders } from "../../services/api";
 import "./ProfileOrdersTab.css";
 
 function ProfileOrdersTab() {

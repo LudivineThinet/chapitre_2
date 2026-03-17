@@ -4,7 +4,7 @@ import {
   fetchAdminBooks,
   updateAdminStockItem,
   createAdminStockItem
-} from "../services/api";
+} from "../../services/api";
 import "./AdminStockTab.css";
 
 function AdminStockTab() {

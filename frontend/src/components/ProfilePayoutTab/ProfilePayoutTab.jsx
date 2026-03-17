@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   fetchUserPayout,
   updateUserPayout
-} from "../services/api";
+} from "../../services/api";
 import "./ProfilePayoutTab.css";
 
 function maskIban(iban) {

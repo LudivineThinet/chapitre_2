@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchUserBuybacks } from "../services/api";
+import { fetchUserBuybacks } from "../../services/api";
 import "./ProfileBuybacksTab.css";
 
 function ProfileBuybacksTab() {

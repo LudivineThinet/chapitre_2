@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   fetchAdminBuybacks,
   updateAdminBuybackStatus
-} from "../services/api";
+} from "../../services/api";
 import "./AdminBuybacksTab.css";
 
 function AdminBuybacksTab() {
