@@ -21,7 +21,7 @@ function BookCard({ book }) {
 
       {/* Price */}
       <p>
-        From <strong>{book.starting_price} €</strong>
+        Á partir de <strong>{book.starting_price} €</strong>
       </p>
 
     </Link>

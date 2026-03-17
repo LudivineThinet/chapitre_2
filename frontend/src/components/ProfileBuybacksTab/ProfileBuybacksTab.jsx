@@ -2,6 +2,18 @@ import { useEffect, useState } from "react";
 import { fetchUserBuybacks } from "../../services/api";
 import "./ProfileBuybacksTab.css";
 
+const conditionTranslations = {
+  like_new: "Comme neuf",
+  very_good: "Très bon",
+  good: "Bon",
+  acceptable: "Acceptable"
+};
+
+const statusTranslations = {
+  accepted: "Accepté",
+  rejected: "Rejeté"
+};
+
 function ProfileBuybacksTab() {
   const [buybacks, setBuybacks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,17 +56,17 @@ function ProfileBuybacksTab() {
               </p>
 
               <p>
-                <strong>État :</strong> {b.condition}
+                <strong>État :</strong> {conditionTranslations[b.condition] || b.condition}
               </p>
 
               <p>
-                <strong>Prix estimé :</strong> {b.buy_price} €
+                <strong>Estimation du prix de rachat :</strong> {b.buy_price} €
               </p>
 
               <p>
                 <strong>Statut :</strong>{" "}
                 <span className="buyback-status">
-                  {b.status}
+                  {statusTranslations[b.status] || b.status}
                 </span>
               </p>
 

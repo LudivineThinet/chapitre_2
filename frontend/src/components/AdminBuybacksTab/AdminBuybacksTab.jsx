@@ -5,6 +5,13 @@ import {
 } from "../../services/api";
 import "./AdminBuybacksTab.css";
 
+const conditionTranslations = {
+  like_new: "Comme neuf",
+  very_good: "Très bon",
+  good: "Bon",
+  acceptable: "Acceptable"
+};
+
 function AdminBuybacksTab() {
   const [buybacks, setBuybacks] = useState([]);
   const [error, setError] = useState("");
@@ -49,7 +56,7 @@ function AdminBuybacksTab() {
               <th>Utilisateur</th>
               <th>État</th>
               <th>Prix rachat</th>
-              <th>Status</th>
+              <th>Statut</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -61,7 +68,7 @@ function AdminBuybacksTab() {
                   {bb.title} — {bb.author}
                 </td>
                 <td>{bb.user_email}</td>
-                <td>{bb.condition}</td>
+                <td>{conditionTranslations[bb.condition] || bb.condition}</td>
                 <td>{bb.buy_price} €</td>
                 <td>{bb.status}</td>
 

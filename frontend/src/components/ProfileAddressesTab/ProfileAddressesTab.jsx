@@ -113,7 +113,7 @@ function ProfileAddressesTab() {
       <form onSubmit={handleSubmit} className="address-form">
         <input
           name="full_name"
-          placeholder="Nom de l'adresse"
+          placeholder="Nom et prénom"
           value={form.full_name}
           onChange={handleChange}
           required
