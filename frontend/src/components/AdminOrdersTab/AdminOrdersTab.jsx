@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   fetchAdminOrders,
   updateAdminOrderStatus
-} from "../services/api";
+} from "../../services/api";
 import "./AdminOrdersTab.css";
 
 function AdminOrdersTab() {

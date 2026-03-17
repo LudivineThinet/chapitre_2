@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   fetchUserProfile,
   updateUserProfile
-} from "../services/api";
+} from "../../services/api";
 import "./ProfileInfosTab.css";
 
 function ProfileInfosTab() {

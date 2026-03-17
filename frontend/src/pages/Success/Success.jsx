@@ -19,7 +19,7 @@ function Success() {
     if (hasCreatedOrder.current) return;
     hasCreatedOrder.current = true;
 
-    async function createOrder() {
+    async function handleCreateOrder() {
       const storedAddressId = sessionStorage.getItem("selectedAddressId");
       const token = localStorage.getItem("token");
 
@@ -57,7 +57,7 @@ function Success() {
       }
     }
 
-    createOrder();
+    handleCreateOrder();
   }, [cartItems, clearCart]);
 
   return (

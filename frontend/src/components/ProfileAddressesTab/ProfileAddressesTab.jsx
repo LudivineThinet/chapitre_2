@@ -4,7 +4,7 @@ import {
   fetchUserAddresses,
   createUserAddress,
   deleteUserAddress
-} from "../services/api";
+} from "../../services/api";
 import trash from "../../assets/Icon/trash.svg";
 
 function ProfileAddressesTab() {

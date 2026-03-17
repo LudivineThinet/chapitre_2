@@ -4,7 +4,7 @@ import {
   fetchGenres,
   createAdminBook,
   updateAdminBook
-} from "../services/api";
+} from "../../services/api";
 import "./AdminBooksTab.css";
 
 function AdminBooksTab() {
