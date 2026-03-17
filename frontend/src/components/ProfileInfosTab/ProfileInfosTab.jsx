@@ -38,7 +38,7 @@ function ProfileInfosTab() {
 }
 
     fetchUser();
-  }, [token]);
+  }, []);
 
   // 🔹 gestion saisie
   function handleChange(e) {

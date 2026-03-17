@@ -50,7 +50,7 @@ function Checkout() {
 }
 
     fetchAddresses();
-  }, [token]);
+  }, []);
 
   // 🔹 form nouvelle adresse
   function handleNewAddressChange(e) {
@@ -69,11 +69,7 @@ function Checkout() {
       try {
         const data = await createUserAddress(newAddress);
 
-        if (!res.ok) {
-          console.error("Erreur création adresse :", data);
-          alert("Erreur lors de la création de l'adresse.");
-          return;
-        }
+       
 
         addressIdToUse = data.id;
       } catch (err) {
