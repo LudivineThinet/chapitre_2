@@ -1,6 +1,7 @@
 import pool from '../config/db.js'
 
 export const getAllBooks = async (req, res) => {
+    console.log("GET /books appelé");
   const { genre } = req.query
 
   try {
@@ -9,6 +10,7 @@ export const getAllBooks = async (req, res) => {
         b.id,
         b.title,
         b.author,
+        b.isbn,
         b.image_url,
         b.format,
         MIN(bi.sell_price) AS starting_price,

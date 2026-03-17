@@ -54,7 +54,7 @@
 
 /* bouton ajouter */
 
-.sell-form button {
+.sell-form button:not(.catalog-btn) {
   margin-top: 0.5rem;
   padding: 0.7rem;
 
@@ -200,4 +200,68 @@
 .modal-actions button:last-child {
   background: var(--terracotta);
   color: white;
+}
+.catalog-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-top: 0.3rem;
+
+  color: var(--vert);
+  font-size: 0.85rem;
+
+  cursor: pointer;
+  text-decoration: underline;
+
+  box-shadow: none;
+}
+
+.catalog-btn:hover {
+  background: none;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.catalog-list {
+  border: 1px solid var(--rose);
+  border-radius: 10px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.catalog-list h3 {
+  font-size: 14px;
+  color: var(--vert);
+  margin: 0;
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--rose);
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.catalog-item {
+  padding: 6px 0.8rem;
+  border-bottom: 1px solid var(--rose);
+  font-size: 13px;
+  color: var(--vert);
+  cursor: pointer;
+}
+
+.catalog-item:last-child {
+  border-bottom: none;
+}
+
+.catalog-item strong {
+  display: block;
+}
+
+.catalog-item span {
+  font-size: 11px;
+  color: #888;
+}
+.catalog-item:hover {
+  background: #fff3ec;
 }
