@@ -44,6 +44,8 @@
   overflow: hidden;
   text-align: center;
   color: var(--vert);
+  min-height: 2.6em;
+
 }
 
 /* Auteur */
@@ -58,4 +60,23 @@
 .book-card strong {
   color: var(--terracotta);
   font-size: 14px;
+}
+@media (max-width: 560px) {
+  .book-card {
+    padding: 10px;
+  }
+
+  .book-card-image {
+    width: 100%;
+    height: 160px;
+  }
+
+  .book-card h2 {
+    font-size: 13px;
+  }
+
+  .book-card p,
+  .book-card strong {
+    font-size: 12px;
+  }
 }

@@ -48,3 +48,18 @@
   gap: 1.8rem;
   margin-top: 1.5rem;
 }
+
+@media (max-width: 560px) {
+  .books-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .books-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .books-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}

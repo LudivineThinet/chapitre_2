@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --vert: #52653f;
   --rose: #f7cdd0;
@@ -61,4 +65,22 @@ input {
   border: 1px solid var(--rose);
   border-radius: 12px;
   padding: 16px;
+}
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  h1 { font-size: 22px; }
+  h2 { font-size: 18px; }
+  h3 { font-size: 15px; }
+
+  button {
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 12px;
+  }
 }

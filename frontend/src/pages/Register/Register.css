@@ -103,3 +103,10 @@
 .register-page a:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 560px) {
+  .register-page {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+}

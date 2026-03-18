@@ -65,3 +65,39 @@
   flex: 1;
   padding: 28px;
 }
+@media (max-width: 560px) {
+  .admin-layout {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rose);
+    padding: 12px;
+  }
+
+  .admin-sidebar h2 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  .admin-sidebar nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .admin-sidebar a {
+    font-size: 0.78rem;
+    padding: 6px 10px;
+  }
+
+  .admin-sidebar a:last-child {
+    margin-top: 0;
+  }
+
+  .admin-content {
+    padding: 16px 12px;
+  }
+}

@@ -73,3 +73,13 @@
   font-size: 0.85rem;
   color: #666;
 }
+
+@media (max-width: 560px) {
+  .offer-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .offer-title {
+    font-size: 1rem;
+  }
+}

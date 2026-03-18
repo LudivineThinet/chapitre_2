@@ -71,3 +71,11 @@
   color: #c94c4c;
   margin-top: 10px;
 }
+
+@media (max-width: 560px) {
+  .buybacks-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
