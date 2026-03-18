@@ -48,3 +48,10 @@
   transform: translateY(-1px);
   box-shadow: 0 5px 12px rgba(0,0,0,0.12);
 }
+
+@media (max-width: 560px) {
+  .cancel-page {
+    margin: 2rem 1rem;
+    padding: 1.5rem;
+  }
+}

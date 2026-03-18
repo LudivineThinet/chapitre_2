@@ -172,3 +172,17 @@
   transform: translateY(-1px);
   box-shadow: 0 5px 12px rgba(0,0,0,0.12);
 }
+
+@media (max-width: 560px) {
+  .checkout-page {
+    padding: 1.5rem 1rem;
+  }
+
+  .checkout-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .address-mode {
+    flex-direction: column;
+  }
+}
