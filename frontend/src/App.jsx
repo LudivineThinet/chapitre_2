@@ -22,11 +22,14 @@ import LegalNotice from "./pages/LegalNotice/LegalNotice";
 import Privacy from "./pages/Privacy/Privacy";
 import Terms from "./pages/Terms/Terms";
 import TermsOfSale from "./pages/TermsOfSale/TermsOfSale";
+import CookieBanner from "./components/CookieBanner/CookieBanner";
 
 function App() {
   return (
     <>
       <Header />
+      
+
     <Routes>
       {/* Landing page */}
       <Route path="/" element={<Home />} />
@@ -75,6 +78,7 @@ function App() {
     
     </Routes>
       <Footer />
+      <CookieBanner />
     </>
   );
 }
