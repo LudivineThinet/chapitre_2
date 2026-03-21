@@ -38,6 +38,7 @@ function Footer() {
           <Link to="/terms">Conditions d'utilisation</Link>
           <Link to="/privacy">Politique de confidentialité</Link>
           <Link to="/legal">Mentions légales</Link>
+          <Link to="/cgv">Conditions de vente</Link>
         </div>
 
         {/* Newsletter */}

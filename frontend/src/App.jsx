@@ -18,7 +18,10 @@ import AdminBuybacks from "./pages/AdminBuybacks/AdminBuybacks";
 import AdminOrders from "./pages/AdminOrders/AdminOrders";
 import AdminBooks from "./pages/AdminBooks/AdminBooks";
 import AdminStock from "./pages/AdminStock/AdminStock";
-
+import LegalNotice from "./pages/LegalNotice/LegalNotice";
+import Privacy from "./pages/Privacy/Privacy";
+import Terms from "./pages/Terms/Terms";
+import TermsOfSale from "./pages/TermsOfSale/TermsOfSale";
 
 function App() {
   return (
@@ -61,6 +64,12 @@ function App() {
         <Route path="books" element={<AdminBooks />} />
         <Route path="stock" element={<AdminStock />} />
       </Route>
+
+      {/* Legal */}
+      <Route path="/legal" element={<LegalNotice />} />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/cgv" element={<TermsOfSale />} />
 
 
     
