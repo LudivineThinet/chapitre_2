@@ -20,7 +20,7 @@ import './config/db.js'
 
 const app = express()
 
-app.use(cors())
+app.use(cors({ origin: 'https://chapitre-2.vercel.app' }))
 app.use(express.json())
 
 app.use('/auth', authRoutes)
