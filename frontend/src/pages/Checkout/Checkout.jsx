@@ -22,10 +22,10 @@ function Checkout() {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [loadingAddresses, setLoadingAddresses] = useState(true);
 
-  // 🔹 mode adresse
+  //mode adresse
   const [addressMode, setAddressMode] = useState("saved"); // saved | new
 
-  // 🔹 nouvelle adresse
+  //nouvelle adresse
   const [newAddress, setNewAddress] = useState({
     full_name: "",
     street: "",
@@ -34,12 +34,12 @@ function Checkout() {
     country: "",
   });
 
-  // 🔹 Total
+  //Total
   const total = cartItems.reduce((sum, item) => {
     return sum + Number(item.price) * item.quantity;
   }, 0);
 
-  // 🔹 Charger les adresses
+  //Charger les adresses
   useEffect(() => {
     async function fetchAddresses() {
   try {
@@ -59,7 +59,7 @@ function Checkout() {
     fetchAddresses();
   }, []);
 
-  // 🔹 form nouvelle adresse
+  //form nouvelle adresse
   function handleNewAddressChange(e) {
     setNewAddress({
       ...newAddress,
@@ -67,7 +67,7 @@ function Checkout() {
     });
   }
 
-  // 🔹 Stripe checkout
+  //Stripe checkout
   async function handleStripeCheckout() {
     let addressIdToUse = selectedAddressId;
 
@@ -85,13 +85,13 @@ function Checkout() {
       }
     }
 
-    // 🔹 sécurité
+    //sécurité
     if (!addressIdToUse) {
       alert("Veuillez sélectionner une adresse.");
       return;
     }
 
-    // 💾 stock pour Success
+    //stock pour Success
     sessionStorage.setItem("selectedAddressId", addressIdToUse);
 
     // ===== STRIPE =====

@@ -27,8 +27,8 @@ export const createCheckoutSession = async (req, res) => {
         quantity: item.quantity
       })),
 
-      success_url: 'http://localhost:5173/Success',
-      cancel_url: 'http://localhost:5173/Cancel'
+      success_url: 'https://chapitre-2.vercel.app/success',
+      cancel_url: 'https://chapitre-2.vercel.app/cancel'
     })
 
     res.json({

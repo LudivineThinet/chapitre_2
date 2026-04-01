@@ -23,11 +23,14 @@ import Privacy from "./pages/Privacy/Privacy";
 import Terms from "./pages/Terms/Terms";
 import TermsOfSale from "./pages/TermsOfSale/TermsOfSale";
 import CookieBanner from "./components/CookieBanner/CookieBanner";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
   return (
     <>
+      <ScrollToTop />
       <Header />
+
       
 
     <Routes>
